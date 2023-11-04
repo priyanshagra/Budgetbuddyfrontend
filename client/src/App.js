@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import {useCookies} from "react-cookie";
+import Signup from './Components/Signup';
+import Emailcheck from './Components/Emailcheck.js';
+import Friends from './Components/Friends.js';
+import Group from './Components/Group.js';
+import Income from './Components/Income.js';
+import Expenses from './Components/Expenses.js';
 
-function App() {
+const App = () => {
+    const [cookies, setCookie, removeCookie] = useCookies(['user'])
+
+
+
+    const authToken = cookies.AuthToken
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Signup/>}/>
+          <Route path="/emailcheck" element={<Emailcheck/>}/>
+          <Route path="/friends" element={<Friends/>}/>
+          <Route path="/groups" element={<Group/>}/>
+          <Route path="/income" element={<Income/>}/>
+          <Route path="/expenses" element={<Expenses/>}/>
+           
+        </Routes>
+      </BrowserRouter>
+  )
 }
+
 
 export default App;
