@@ -5,9 +5,9 @@ const Signup = () => {
   return (
     <div>
        <button className='' >
-        <Link to="/login">Login</Link></button>
+        <Link to="/emailcheck">Login</Link></button>
         <button className='' >
-        <Link to="/checksignup">Signup</Link></button>
+        <Link to="/authemail">Signup</Link></button>
     </div>
   )
 }
