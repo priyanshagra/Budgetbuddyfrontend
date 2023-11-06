@@ -1,6 +1,52 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 
-const Emailcheck = () => {
+const Emailcheck = (props) => {
+
+    const [isLoading, setIsLoading] = useState(false);
+    const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+
+    const [credentials, setCredentials] = useState({ email: "", password: "" });
+    let navigate = useNavigate();
+  
+    
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+  
+      navigate("/loading");
+      const response = await fetch(
+        "http://localhost:8000/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: credentials.email,
+            password: credentials.password,
+          }),
+        }
+      );
+      const json = await response.json();
+      console.log(json)
+      if (json.success) {
+        setCookie("AuthToken", json.authtoken);
+        setCookie("UserId", json.id);
+        props.showAlert("login successfull ", "success");
+        navigate("/dashboard");
+      } else {
+        props.showAlert(
+          "invalid details or not created account yet go on signup page",
+          "danger"
+        );
+        navigate("/");
+      }
+    };
+    const onChange = (e) => {
+      setCredentials({ ...credentials, [e.target.name]: e.target.value });
+    };
+
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -10,7 +56,7 @@ const Emailcheck = () => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6" action="#" method="POST" onSubmit={handleSubmit} >
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                 Email address
@@ -22,6 +68,8 @@ const Emailcheck = () => {
                   type="email"
                   autoComplete="email"
                   required
+                  value={credentials.email}
+                  onChange={onChange}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -45,6 +93,8 @@ const Emailcheck = () => {
                   type="password"
                   autoComplete="current-password"
                   required
+                  value={credentials.password}
+                  onChange={onChange}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>

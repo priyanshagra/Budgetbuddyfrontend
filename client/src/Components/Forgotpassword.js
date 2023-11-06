@@ -1,6 +1,53 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
-const Forgotpassword = () => {
+const Forgotpassword = (props) => {
+
+
+    const [credentials, setCredentials] = useState({ email:"" });
+    let navigate = useNavigate();
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      navigate("/loading");
+      const response = await fetch(
+        "http://localhost:8000/api/auth/sendemailforgot",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: credentials.email
+          }),
+        }
+      )
+      
+      
+      const json = await response.json();
+       if (json.success)
+       {
+        
+        props.showAlert("message sent successfully ", "success");
+        navigate("/emailcheck");
+       
+       }
+        else
+        {
+          
+          props.showAlert("try sending message again ", "danger");
+          navigate("/forgotpassword");
+
+        }
+        
+      
+    };
+    const onChange = (e) => {
+      setCredentials({ ...credentials, [e.target.name]: e.target.value });
+    };
+
+
+
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -10,7 +57,7 @@ const Forgotpassword = () => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6" action="#" method="POST" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                 Email address
@@ -22,6 +69,8 @@ const Forgotpassword = () => {
                   type="email"
                   autoComplete="email"
                   required
+                  value={credentials.email}
+                  onChange={onChange}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>

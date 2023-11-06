@@ -10,28 +10,49 @@ import Authemail from './Components/Authemail.js';
 import Forgotpassword from './Components/Forgotpassword.js';
 import Onboarding from './Components/Onboarding.js';
 import Dashboard from './Components/Dashboard.js';
+import Loading from './Components/Loading.js';
+import Alert from './Components/Alert.js';
+import { useState } from 'react';
+import Getotp from './Components/Getotp.js';
 
 const App = () => {
     const [cookies, setCookie, removeCookie] = useCookies(['user'])
 
+    const [alert,setAlert] = useState(null);
+
+    const showAlert =(message,type)=>
+  { 
+    setAlert({
+      msg:message,
+      type:type
+    })
+    setTimeout(()=>{
+      setAlert(null);
+    },3000);
+
+  }
 
 
     const authToken = cookies.AuthToken
 
 
   return (
+    
       <BrowserRouter>
+       <Alert alert={alert}/>
         <Routes>
-          <Route path="/" element={<Signup/>}/>
-          <Route path="/emailcheck" element={<Emailcheck/>}/>
-          <Route path="/authemail" element={<Authemail/>}/>
+          <Route path="/" element={<Signup showAlert={showAlert}/>}/>
+          <Route path="/emailcheck" element={<Emailcheck showAlert={showAlert}/>}/>
+          <Route path="/authemail" element={<Authemail showAlert={showAlert}/>}/>
           <Route path="/friends" element={<Friends/>}/>
           <Route path="/groups" element={<Group/>}/>
           <Route path="/income" element={<Income/>}/>
           <Route path="/expenses" element={<Expenses/>}/>
-          <Route path="/forgotpassword" element={<Forgotpassword/>}/>
+          <Route path="/forgotpassword" element={<Forgotpassword  showAlert={showAlert}/>}/>
           <Route path="/onboarding" element={<Onboarding/>}/>
           <Route path="/dashboard" element={<Dashboard/>}/>
+          <Route path="/loading" element={<Loading/>}/>
+          <Route path="/getotp" element={<Getotp  showAlert={showAlert}/>}/>
         </Routes>
       </BrowserRouter>
   )
