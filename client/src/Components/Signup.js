@@ -42,6 +42,7 @@ const Signup = (props) => {
     if (json.success) {
       setCookie("AuthToken", json.authtoken);
       setCookie("UserId", json.id);
+      setCookie("email", response.profileObj.email);
       props.showAlert("Google signup successfull", "success");
       navigate("/onboarding");
     } else {

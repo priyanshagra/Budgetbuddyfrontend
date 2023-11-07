@@ -33,6 +33,13 @@ const Emailcheck = (props) => {
       if (json.success) {
         setCookie("AuthToken", json.authtoken);
         setCookie("UserId", json.id);
+        setCookie("email", credentials.email);
+        setCookie("name", json.name);
+        setCookie("pic", json.pic);
+        setCookie("maxexpense", json.maxexpense);
+        setCookie("minexpense", json.minexpense);
+        setCookie("maxsalary", json.maxsalary);
+        setCookie("minsalary", json.minsalary);
         props.showAlert("login successfull ", "success");
         navigate("/dashboard");
       } else {
