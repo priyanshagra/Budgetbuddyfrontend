@@ -2,12 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import CryptoContext from "./Components/CryptoContext"
+import 'react-alice-carousel/lib/alice-carousel.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <CryptoContext>
     <App />
-  </React.StrictMode>
+    </CryptoContext>
 );
 
 // If you want to start measuring performance in your app, pass a function
