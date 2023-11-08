@@ -14,6 +14,7 @@ import Loading from './Components/Loading.js';
 import Alert from './Components/Alert.js';
 import { useState } from 'react';
 import Getotp from './Components/Getotp.js';
+import Stocks from './Components/Stocks.js';
 
 const App = () => {
     const [cookies, setCookie, removeCookie] = useCookies(['user'])
@@ -53,6 +54,7 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard/>}/>
           <Route path="/loading" element={<Loading/>}/>
           <Route path="/getotp" element={<Getotp  showAlert={showAlert}/>}/>
+          <Route path="/stocks" element={<Stocks showAlert={showAlert}/>}/>
         </Routes>
       </BrowserRouter>
   )
