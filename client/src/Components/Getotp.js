@@ -39,6 +39,7 @@ const Getotp = (props) => {
         setCookie("AuthToken", json.authtoken);
         setCookie("UserId", json.id);
         props.showAlert(" signup successfull", "success");
+        props.setforlogin();
         navigate("/onboarding");
       } else {
         props.showAlert("signup unsuccessfull", "danger");

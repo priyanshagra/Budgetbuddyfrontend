@@ -43,8 +43,23 @@ const Signup = (props) => {
       setCookie("AuthToken", json.authtoken);
       setCookie("UserId", json.id);
       setCookie("email", response.profileObj.email);
+      props.setforlogin();
       props.showAlert("Google signup successfull", "success");
-      navigate("/onboarding");
+      console.log(json.success1)
+      if(json.success1)
+      {
+        setCookie("name", json.name);
+        setCookie("pic", json.pic);
+        setCookie("maxexpense", json.maxexpense);
+        setCookie("minexpense", json.minexpense);
+        setCookie("maxsalary", json.maxsalary);
+        setCookie("minsalary", json.minsalary);
+        navigate('/');
+      }
+      else
+      {
+        navigate('/onboarding');
+      }
     } else {
       props.showAlert("Goggle signup unsuccessfull", "danger");
       navigate("/")

@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core/styles";
 import { useNavigate } from "react-router-dom";
 import { CryptoState } from "./CryptoContext";
+import { useCookies } from "react-cookie";
 const useStyles = makeStyles((theme) => ({
   title: {
     flex: 1,
@@ -32,24 +33,27 @@ const darkTheme = createTheme({
     type: "dark",
   },
 });
-const Header = () => {
+const Header = (props) => {
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   const classes = useStyles();
   const history = useNavigate();
   const { currency, setCurrency } = CryptoState();
   console.log(currency);
   return (
     <div>
-      <ThemeProvider theme={darkTheme}>
+      <ThemeProvider>
         <AppBar color="transparent" position="static">
           <Container>
             <Toolbar>
-              <Typography
-                className={classes.title}
-                variant="h6"
-                onClick={() => history("/")}
-              >
-                Budget Buddy
-              </Typography>
+              {(cookies.name||props.dash )&& (
+                <Typography
+                  className={classes.title}
+                  variant="h6"
+                  onClick={() => history("/")}
+                >
+                  Budget Buddy
+                </Typography>
+              )}
               <Select
                 variant="outlined"
                 labelId="demo-simple-select-label"

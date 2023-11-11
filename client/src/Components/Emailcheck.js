@@ -41,7 +41,8 @@ const Emailcheck = (props) => {
         setCookie("maxsalary", json.maxsalary);
         setCookie("minsalary", json.minsalary);
         props.showAlert("login successfull ", "success");
-        navigate("/dashboard");
+        props.setforlogin();
+        navigate("/");
       } else {
         props.showAlert(
           "invalid details or not created account yet go on signup page",
