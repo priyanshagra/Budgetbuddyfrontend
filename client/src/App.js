@@ -73,7 +73,7 @@ const App = () => {
           <Route path="/loading" element={<Loading/>}/>
           <Route path="/getotp" element={<Getotp  showAlert={showAlert} setforlogin={setforlogin}/>}/>
           <Route path="/stocks" element={<Stocks showAlert={showAlert}/>}/>
-          <Route path="/coins/:id" element={<CoinPage/>} />
+          <Route path="/coins/:id" element={<CoinPage showAlert={showAlert} />} />
         </Routes>
       </BrowserRouter>
   )
