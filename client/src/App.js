@@ -16,9 +16,13 @@ import { useState } from 'react';
 import Getotp from './Components/Getotp.js';
 import Stocks from './Components/Stocks.js';
 import CoinPage from './Components/Coinpage.js';
+import { useGlobalContext } from './Components/globalcontext.js';
 
 const App = () => {
     const [cookies, setCookie, removeCookie] = useCookies(['user'])
+
+    const global=useGlobalContext()
+    console.log(global)
 
     const [alert,setAlert] = useState(null);
 
@@ -33,7 +37,6 @@ const App = () => {
     },3000);
 
   }
-
 
     const authToken = cookies.AuthToken
 
@@ -61,6 +64,4 @@ const App = () => {
       </BrowserRouter>
   )
 }
-
-
 export default App;
