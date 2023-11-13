@@ -51,8 +51,9 @@ const Header = (props) => {
                   variant="h6"
                   onClick={() => history("/")}
                 >
-                  Budget Buddy
+                  Dashboard
                 </Typography>
+                
               )}
               <Select
                 variant="outlined"

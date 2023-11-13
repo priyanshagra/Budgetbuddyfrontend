@@ -3,9 +3,14 @@ import { useCookies } from "react-cookie";
 import { PaperClipIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router-dom";
 import Stocks from "./Stocks";
+import { CryptoState } from "./CryptoContext";
 
 const Dashboard = (props) => {
+
+  const apiKey = '3b31ded8bd58e51ae49d584cc911c0fc';
+  const { currency, symbol } = CryptoState();
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  const apiUrl = `https://open.er-api.com/v6/latest/${cookies.currency}?apikey=${apiKey}`;
   let stage="dashboard";
   const profileImageURL = cookies.pic;
   const name = cookies.name;
@@ -17,6 +22,7 @@ const Dashboard = (props) => {
   const navigate = useNavigate();
 
   const deletecache = async () => {
+    props.setforlogin2();
     try {
       removeCookie("AuthToken");
       removeCookie("UserId");
@@ -27,12 +33,14 @@ const Dashboard = (props) => {
       removeCookie("minexpense");
       removeCookie("maxsalary");
       removeCookie("minsalary");
-      props.setforlogin2();
+      
       navigate("/");
     } catch (error) {
       console.error("Error clearing cache:", error);
     }
   };
+
+  useEffect
 
   return (
     <div class="flex h-screen bg-gray-100 font-poppins antialiased">
@@ -161,7 +169,7 @@ const Dashboard = (props) => {
                   clip-rule="evenodd"
                 ></path>
               </svg>
-              <span class="">Calendar</span>
+              <span class="">Chats</span>
             </a>
             <a
               href=""
@@ -179,7 +187,7 @@ const Dashboard = (props) => {
                   clip-rule="evenodd"
                 ></path>
               </svg>
-              <span class="">Table</span>
+              <span class="">Groups</span>
             </a>
             <a
               href=""
@@ -193,7 +201,7 @@ const Dashboard = (props) => {
               >
                 <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM14 11a1 1 0 011 1v1h1a1 1 0 110 2h-1v1a1 1 0 11-2 0v-1h-1a1 1 0 110-2h1v-1a1 1 0 011-1z"></path>
               </svg>
-              <span class="">UI Components</span>
+              <span class="">Settings</span>
             </a>
             <button
               class="h-10 px-5 m-2 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg hover:bg-indigo-800 h-12 px-6 m-2 text-lg"

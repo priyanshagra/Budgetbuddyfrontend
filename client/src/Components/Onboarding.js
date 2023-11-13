@@ -1,5 +1,14 @@
 import React, { useState } from "react";
 
+import {
+    Container,
+    MenuItem,
+    AppBar,
+    Toolbar,
+    Typography,
+    Select,
+  } from "@material-ui/core";
+
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
@@ -15,6 +24,7 @@ const Onboarding = (props) => {
   const [picLoading, setPicLoading] = useState(true);
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
+  const [ currency, setCurrency ] = useState("INR");
   let navigate = useNavigate();
 
   const submitHandler = async (e) => {
@@ -55,12 +65,14 @@ const Onboarding = (props) => {
 
     const json = await response.json();
     if (json.success) {
+      props.setforlogin(); 
       setCookie("name", name);
       setCookie("pic", pic);
       setCookie("maxexpense", maxexpense);
       setCookie("minexpense", minexpense);
       setCookie("maxsalary", maxsalary);
       setCookie("minsalary", minsalary);
+      setCookie("currency", currency);
       props.showAlert(" successfully ", "success");
       props.setDash();
       navigate("/");
@@ -208,7 +220,17 @@ const Onboarding = (props) => {
               />
             </div>
           </div>
-
+          <Select
+                variant="outlined"
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={currency}
+                style={{ width: 100, height: 40, marginLeft: 15 }}
+                onChange={(e) => setCurrency(e.target.value)}
+              >
+                <MenuItem value={"USD"}>USD</MenuItem>
+                <MenuItem value={"INR"}>INR</MenuItem>
+              </Select>
           <div>
             <div className="flex items-center justify-between">
               <label
