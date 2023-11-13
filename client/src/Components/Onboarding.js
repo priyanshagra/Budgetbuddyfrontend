@@ -62,7 +62,8 @@ const Onboarding = (props) => {
       setCookie("maxsalary", maxsalary);
       setCookie("minsalary", minsalary);
       props.showAlert(" successfully ", "success");
-      navigate("/dashboard");
+      props.setDash();
+      navigate("/");
     } else {
       props.showAlert("unsuccesfull ", "danger");
       navigate("/onboarding");
@@ -90,6 +91,7 @@ const Onboarding = (props) => {
           setPic(data.url.toString());
           console.log(data.url.toString());
           setPicLoading(false);
+
         })
         .catch((err) => {
           console.log(err);

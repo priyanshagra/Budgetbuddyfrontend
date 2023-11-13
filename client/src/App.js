@@ -16,7 +16,6 @@ import { useState } from 'react';
 import Getotp from './Components/Getotp.js';
 import Stocks from './Components/Stocks.js';
 import CoinPage from './Components/Coinpage.js';
-import { useGlobalContext } from './Components/globalcontext.js';
 
 const App = () => {
     const [cookies, setCookie, removeCookie] = useCookies(['user'])
@@ -25,6 +24,8 @@ const App = () => {
     console.log(global)
 
     const [alert,setAlert] = useState(null);
+    const [login,setlogin] = useState(false);
+    const [dash,setdash] = useState(false);
 
     const showAlert =(message,type)=>
   { 
@@ -38,28 +39,39 @@ const App = () => {
 
   }
 
-    const authToken = cookies.AuthToken
+
+  const setforlogin2=() =>
+  {
+    setlogin(false);
+  }
 
 
+  const setDash =()=>{
+    setdash(true)
+  }
   return (
     
       <BrowserRouter>
        <Alert alert={alert}/>
+      {(login||cookies.AuthToken)&&<Header dash={dash}/>} 
+
         <Routes>
-          <Route path="/" element={<Signup showAlert={showAlert}/>}/>
-          <Route path="/emailcheck" element={<Emailcheck showAlert={showAlert}/>}/>
+            {(login||cookies.AuthToken)?<Route path="/" element={<Dashboard  setforlogin2={setforlogin2}/>}/>:
+                <Route path="/" element={<Signup showAlert={showAlert} setforlogin={setforlogin}/>}/>
+            }
+          <Route path="/emailcheck" element={<Emailcheck showAlert={showAlert} setforlogin={setforlogin}/>}/>
           <Route path="/authemail" element={<Authemail showAlert={showAlert}/>}/>
           <Route path="/friends" element={<Friends/>}/>
           <Route path="/groups" element={<Group/>}/>
           <Route path="/income" element={<Income/>}/>
           <Route path="/expenses" element={<Expenses/>}/>
           <Route path="/forgotpassword" element={<Forgotpassword  showAlert={showAlert}/>}/>
-          <Route path="/onboarding" element={<Onboarding  showAlert={showAlert}/>}/>
-          <Route path="/dashboard" element={<Dashboard/>}/>
+          <Route path="/onboarding" element={<Onboarding  showAlert={showAlert} setDash={setDash}/>}/>
+          
           <Route path="/loading" element={<Loading/>}/>
-          <Route path="/getotp" element={<Getotp  showAlert={showAlert}/>}/>
+          <Route path="/getotp" element={<Getotp  showAlert={showAlert} setforlogin={setforlogin}/>}/>
           <Route path="/stocks" element={<Stocks showAlert={showAlert}/>}/>
-          <Route path="/coins/:id" element={<CoinPage/>} />
+          <Route path="/coins/:id" element={<CoinPage showAlert={showAlert} />} />
         </Routes>
       </BrowserRouter>
   )

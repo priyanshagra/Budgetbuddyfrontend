@@ -7,9 +7,44 @@ import CoinInfo from "./CoinInfo";
 import { SingleCoin } from "./Config/api";
 import { numberWithCommas } from "./CoinsTable";
 import { CryptoState } from "./CryptoContext";
+import { useCookies } from "react-cookie";
 
-const CoinPage = () => {
-  const { id } = useParams();
+const CoinPage = (props) => {
+
+
+    const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  
+    const { id } = useParams();
+    const addtowatch = async (e) => {
+      e.preventDefault();
+  
+      const response = await fetch(
+        "http://localhost:8000/api/stocks/addstocks",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user: cookies.UserId,
+            coinid: id,
+          }),
+        }
+      );
+      const json = await response.json();
+      console.log(json)
+      if (json.success) {
+        props.showAlert("Added to watchlist", "success");
+      } else {
+        props.showAlert(
+          "invalid details or not created account yet go on signup page",
+          "danger"
+        );
+      }
+    };
+
+
+  
   const [coin, setCoin] = useState();
 
   const { currency, symbol } = CryptoState();
@@ -149,6 +184,12 @@ const CoinPage = () => {
             </Typography>
           </span>
         </div>
+        <button
+              class="h-10 px-5 m-2 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg hover:bg-indigo-800 h-12 px-6 m-2 text-lg"
+              onClick={addtowatch}
+            >
+              Add To WATCHLIST
+            </button>
       </div>
       <CoinInfo coin={coin} />
     </div>
