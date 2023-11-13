@@ -7,8 +7,8 @@ import 'react-alice-carousel/lib/alice-carousel.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <CryptoContext>
-    <App />
-    </CryptoContext>
+    <App/>
+  </CryptoContext>
 );
 
 // If you want to start measuring performance in your app, pass a function

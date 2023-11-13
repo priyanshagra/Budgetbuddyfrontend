@@ -55,10 +55,10 @@ const App = () => {
     
       <BrowserRouter>
        <Alert alert={alert}/>
-      {(login||cookies.AuthToken)&&<Header dash={dash}/>} 
+      {(login||cookies.name)&&<Header dash={dash}/>} 
 
         <Routes>
-            {(login||cookies.AuthToken)?<Route path="/" element={<Dashboard  setforlogin2={setforlogin2}/>}/>:
+            {(login||cookies.name)?<Route path="/" element={<Dashboard  setforlogin2={setforlogin2}/>}/>:
                 <Route path="/" element={<Signup showAlert={showAlert} setforlogin={setforlogin}/>}/>
             }
           <Route path="/emailcheck" element={<Emailcheck showAlert={showAlert} setforlogin={setforlogin}/>}/>
@@ -68,10 +68,10 @@ const App = () => {
           <Route path="/income" element={<Income/>}/>
           <Route path="/expenses" element={<Expenses/>}/>
           <Route path="/forgotpassword" element={<Forgotpassword  showAlert={showAlert}/>}/>
-          <Route path="/onboarding" element={<Onboarding  showAlert={showAlert} setDash={setDash}/>}/>
+          <Route path="/onboarding" element={<Onboarding  showAlert={showAlert} setDash={setDash} setforlogin={setforlogin}/>}/>
           
           <Route path="/loading" element={<Loading/>}/>
-          <Route path="/getotp" element={<Getotp  showAlert={showAlert} setforlogin={setforlogin}/>}/>
+          <Route path="/getotp" element={<Getotp  showAlert={showAlert} />}/>
           <Route path="/stocks" element={<Stocks showAlert={showAlert}/>}/>
           <Route path="/coins/:id" element={<CoinPage showAlert={showAlert} />} />
         </Routes>
