@@ -10,14 +10,12 @@ export const GlobalProvider = ({children}) => {
     const [income, setIncome] = useState([])
     const [expense, setExpense] = useState([])
     const [error, setError] = useState([])
-
     const addIncome = async (income) => {
         const response=await axios.post(`${BASE_URL}add-income`, income)
         .catch((err) =>{
             setError(err.response.data.message)
         })
     }
-
     return(
         <GlobalContext.Provider value={{
             addIncome
