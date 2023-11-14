@@ -78,6 +78,7 @@ const App = () => {
           <Route path="/getotp" element={<Getotp  showAlert={showAlert} />}/>
           <Route path="/stocks" element={<Stocks showAlert={showAlert}/>}/>
           <Route path="/coins/:id" element={<CoinPage showAlert={showAlert} />} />
+          
         </Routes>
       </BrowserRouter>
   )

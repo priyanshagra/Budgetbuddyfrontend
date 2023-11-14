@@ -3,7 +3,7 @@ import { useGlobalContext } from './globalcontext'
 import Form from './form'
 
 const Income = () => {
-  const {addIncome} = useGlobalContext()
+  const {addIncome} = useGlobalContext();
   return (
     <div>
       <div className="income-content">

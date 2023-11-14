@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useGlobalContext } from "./globalcontext";
 
-function Form() {
-  const { addIncome } = useGlobalContext();
+function Expenseform() {
+  const { addExpenses } = useGlobalContext();
   const [inputState, setInputState] = useState({
     title: "",
     amount: "",
@@ -18,9 +18,8 @@ function Form() {
   };
 
   const handleSubmit = (e) => {
-    console.log(inputState)
     e.preventDefault();
-    addIncome(inputState);
+    addExpenses(inputState);
   };
 
   return (
@@ -38,13 +37,13 @@ function Form() {
                 htmlFor="email"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                salary-title
+                expense-title
               </label>
               <div className="mt-2">
                 <input
                   type="text"
                   name={"title"}
-                  placeholder="salary-title"
+                  placeholder="expense-title"
                   onChange={handleInput("title")}
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -64,7 +63,7 @@ function Form() {
                 <input
                   type="text"
                   name={"amount"}
-                  placeholder="salary-amount"
+                  placeholder="expense-amount"
                   onChange={handleInput("amount")}
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -111,7 +110,6 @@ function Form() {
                   <option value="" disabled>
                     Select Option
                   </option>
-                  <option value="salary">Salary</option>
                   <option value="freelancing">Freelancing</option>
                   <option value="investments">Investiments</option>
                   <option value="stocks">Stocks</option>
@@ -150,7 +148,7 @@ function Form() {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Add Income
+                Add Expense
               </button>
             </div>
           </form>
@@ -160,4 +158,4 @@ function Form() {
   );
 }
 
-export default Form;
+export default Expenseform;
