@@ -17,6 +17,7 @@ import Getotp from './Components/Getotp.js';
 import Stocks from './Components/Stocks.js';
 import CoinPage from './Components/Coinpage.js';
 import Header from './Components/Header.js';
+import Setting from './Components/Setting.js';
 
 const App = () => {
     const [cookies, setCookie, removeCookie] = useCookies(['user'])
@@ -71,6 +72,7 @@ const App = () => {
           <Route path="/groups" element={<Group/>}/>
           <Route path="/income" element={<Income/>}/>
           <Route path="/expenses" element={<Expenses/>}/>
+          <Route path="/setting" element={<Setting setforlogin2={setforlogin2}/>}/>
           <Route path="/forgotpassword" element={<Forgotpassword  showAlert={showAlert}/>}/>
           <Route path="/onboarding" element={<Onboarding  showAlert={showAlert} setDash={setDash} setforlogin={setforlogin}/>}/>
           

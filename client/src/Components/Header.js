@@ -45,16 +45,43 @@ const Header = (props) => {
         <AppBar color="transparent" position="static">
           <Container>
             <Toolbar>
-              {(cookies.name||props.dash )&& (
+              {(cookies.name || props.dash) && (
                 <Typography
                   className={classes.title}
                   variant="h6"
                   onClick={() => history("/")}
                 >
-                  Dashboard
+                  <span class="">Dashboard</span>
                 </Typography>
-                
               )}
+              <Typography
+                className={classes.title}
+                variant="h6"
+                onClick={() => history("/stocks")}
+              >
+                <span class="">Stocks/cryptos</span>
+              </Typography>
+              <Typography
+                className={classes.title}
+                variant="h6"
+                onClick={() => history("/income")}
+              >
+                <span class="">Income</span>
+              </Typography>
+              <Typography
+                className={classes.title}
+                variant="h6"
+                onClick={() => history("/expenses")}
+              >
+                <span class="">Expenses</span>
+              </Typography>
+              <Typography
+                className={classes.title}
+                variant="h6"
+                onClick={() => history("/setting")}
+              >
+                <span class="">Setting</span>
+              </Typography>
               <Select
                 variant="outlined"
                 labelId="demo-simple-select-label"

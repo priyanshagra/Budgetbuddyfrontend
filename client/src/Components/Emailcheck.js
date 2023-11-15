@@ -40,6 +40,7 @@ const Emailcheck = (props) => {
         setCookie("minexpense", json.minexpense);
         setCookie("maxsalary", json.maxsalary);
         setCookie("minsalary", json.minsalary);
+        setCookie("currency", json.currency);
         props.showAlert("login successfull ", "success");
         props.setforlogin();
         navigate("/");
