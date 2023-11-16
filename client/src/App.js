@@ -3,7 +3,6 @@ import {useCookies} from "react-cookie";
 import Signup from './Components/Signup';
 import Emailcheck from './Components/Emailcheck.js';
 import Friends from './Components/Friends.js';
-import Group from './Components/Group.js';
 import Income from './Components/Income.js';
 import Expenses from './Components/Expenses.js';
 import Authemail from './Components/Authemail.js';
@@ -18,6 +17,7 @@ import Stocks from './Components/Stocks.js';
 import CoinPage from './Components/Coinpage.js';
 import Header from './Components/Header.js';
 import Setting from './Components/Setting.js';
+import Chatpage from "./Components/Chatpage";
 
 const App = () => {
     const [cookies, setCookie, removeCookie] = useCookies(['user'])
@@ -69,17 +69,16 @@ const App = () => {
           <Route path="/emailcheck" element={<Emailcheck showAlert={showAlert} setforlogin={setforlogin}/>}/>
           <Route path="/authemail" element={<Authemail showAlert={showAlert}/>}/>
           <Route path="/friends" element={<Friends/>}/>
-          <Route path="/groups" element={<Group/>}/>
           <Route path="/income" element={<Income/>}/>
           <Route path="/expenses" element={<Expenses/>}/>
           <Route path="/setting" element={<Setting setforlogin2={setforlogin2}/>}/>
           <Route path="/forgotpassword" element={<Forgotpassword  showAlert={showAlert}/>}/>
           <Route path="/onboarding" element={<Onboarding  showAlert={showAlert} setDash={setDash} setforlogin={setforlogin}/>}/>
-          
           <Route path="/loading" element={<Loading/>}/>
           <Route path="/getotp" element={<Getotp  showAlert={showAlert} />}/>
           <Route path="/stocks" element={<Stocks showAlert={showAlert}/>}/>
           <Route path="/coins/:id" element={<CoinPage showAlert={showAlert} />} />
+          <Route path="/chats" element={<Chatpage/>} />
           
         </Routes>
       </BrowserRouter>

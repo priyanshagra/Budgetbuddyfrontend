@@ -82,6 +82,13 @@ const Header = (props) => {
               >
                 <span class="">Setting</span>
               </Typography>
+              <Typography
+                className={classes.title}
+                variant="h6"
+                onClick={() => history("/chats")}
+              >
+                <span class="">Chats</span>
+              </Typography>
               <Select
                 variant="outlined"
                 labelId="demo-simple-select-label"
