@@ -54,6 +54,7 @@ const Signup = (props) => {
         setCookie("minexpense", json.minexpense);
         setCookie("maxsalary", json.maxsalary);
         setCookie("minsalary", json.minsalary);
+        setCookie("currency", json.currency);
         navigate('/');
       }
       else

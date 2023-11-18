@@ -15,6 +15,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { CryptoState } from "./CryptoContext";
 import { useCookies } from "react-cookie";
+import SideDrawer from "../Components/SideDrawer";
 const useStyles = makeStyles((theme) => ({
   title: {
     flex: 1,
@@ -44,17 +45,57 @@ const Header = (props) => {
       <ThemeProvider>
         <AppBar color="transparent" position="static">
           <Container>
+            <Typography
+              className={classes.title}
+              variant="h6"
+            >
+              {<SideDrawer />}
+            </Typography>
             <Toolbar>
-              {(cookies.name||props.dash )&& (
+              {(cookies.name || props.dash) && (
                 <Typography
                   className={classes.title}
                   variant="h6"
                   onClick={() => history("/")}
                 >
-                  Dashboard
+                  <span class="">Dashboard</span>
                 </Typography>
-                
               )}
+              <Typography
+                className={classes.title}
+                variant="h6"
+                onClick={() => history("/stocks")}
+              >
+                <span class="">Stocks/cryptos</span>
+              </Typography>
+              <Typography
+                className={classes.title}
+                variant="h6"
+                onClick={() => history("/income")}
+              >
+                <span class="">Income</span>
+              </Typography>
+              <Typography
+                className={classes.title}
+                variant="h6"
+                onClick={() => history("/expenses")}
+              >
+                <span class="">Expenses</span>
+              </Typography>
+              <Typography
+                className={classes.title}
+                variant="h6"
+                onClick={() => history("/setting")}
+              >
+                <span class="">Setting</span>
+              </Typography>
+              <Typography
+                className={classes.title}
+                variant="h6"
+                onClick={() => history("/chats")}
+              >
+                <span class="">Chats</span>
+              </Typography>
               <Select
                 variant="outlined"
                 labelId="demo-simple-select-label"

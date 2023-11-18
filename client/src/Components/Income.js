@@ -4,11 +4,7 @@ import Form from './form'
 import {incomeItem} from './incomeItem'
 
 const Income = () => {
-  const {addIncome,getIncome,income} = useGlobalContext()
-  
-  useEffect(() => (
-    getIncome()
-    ),[])
+  const {addIncome} = useGlobalContext()
   return (
     <div>
       <div className="income-content">

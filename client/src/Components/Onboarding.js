@@ -23,7 +23,6 @@ const Onboarding = (props) => {
   const [minsalary, setminsalary] = useState();
   const [picLoading, setPicLoading] = useState(true);
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
-
   const [ currency, setCurrency ] = useState("INR");
   let navigate = useNavigate();
 
@@ -59,7 +58,8 @@ const Onboarding = (props) => {
         minexpense: minexpense,
         maxsalary: maxsalary,
         minsalary: minsalary,
-        id:cookies.UserId
+        id:cookies.UserId,
+        currency:currency,
       }),
     });
 
