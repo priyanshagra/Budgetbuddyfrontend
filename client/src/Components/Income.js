@@ -12,16 +12,6 @@ const Income = () => {
             <Form/>
           </div>
           <div className="income">
-            {Array.isArray(income) && income.map((income) =>{
-                 const { _id, title, amount, date, category, description } = income;
-                 return  <incomeItem
-                 id={_id}
-                 title={title}
-                 description={description}
-                 amount={amount} date={date}
-                 category={category}
-                 />          
-            })}
           </div>
       </div>
     </div>

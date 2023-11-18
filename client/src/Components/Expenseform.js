@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useGlobalContext } from "./globalcontext";
 
 function Expenseform() {
-  const { addExpenses } = useGlobalContext();
+  const { addExpense } = useGlobalContext();
   const [inputState, setInputState] = useState({
     title: "",
     amount: "",
@@ -19,7 +19,7 @@ function Expenseform() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addExpenses(inputState);
+    addExpense(inputState);
   };
 
   return (
