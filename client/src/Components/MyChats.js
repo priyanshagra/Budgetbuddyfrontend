@@ -8,11 +8,13 @@ import ChatLoading from "../Components/ChatLoading";
 import GroupChatModal from "../Components/GroupChatModal";
 import { Button } from "@chakra-ui/react";
 import { ChatState } from "../Components/ChatProvider";
+import { useCookies } from "react-cookie";
 
 const MyChats = ({ fetchAgain }) => {
 
   const [loggedUser, setLoggedUser] = useState();
 
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
 
   const toast = useToast();
@@ -20,11 +22,12 @@ const MyChats = ({ fetchAgain }) => {
   const fetchChats = async () => {
     // console.log(user._id);
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": cookies.UserId,
+              },
+          };
 
       const { data } = await axios.get("/api/chat", config);
       setChats(data);

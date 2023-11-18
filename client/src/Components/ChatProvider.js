@@ -8,7 +8,7 @@ const ChatProvider = ({ children }) => {
   const [notification, setNotification] = useState([]);
   const [chats, setChats] = useState();
 
-  const history = useNavigate();
+  
 
   return (
     <ChatContext.Provider

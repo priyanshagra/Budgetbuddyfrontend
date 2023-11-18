@@ -2,12 +2,11 @@ import { Avatar } from "@chakra-ui/avatar";
 import { Box, Text } from "@chakra-ui/layout";
 import { ChatState } from "../Components/ChatProvider";
 
-const UserListItem = ({ handleFunction }) => {
-  const { user } = ChatState();
+const UserListItem = (props) => {
 
   return (
     <Box
-      onClick={handleFunction}
+   
       cursor="pointer"
       bg="#E8E8E8"
       _hover={{
@@ -27,14 +26,14 @@ const UserListItem = ({ handleFunction }) => {
         mr={2}
         size="sm"
         cursor="pointer"
-        name={user.name}
-        src={user.pic}
+        name={props.user.name}
+        src={props.user.pic}
       />
       <Box>
-        <Text>{user.name}</Text>
+        <Text>{props.user.name}</Text>
         <Text fontSize="xs">
           <b>Email : </b>
-          {user.email}
+          {props.user.email}
         </Text>
       </Box>
     </Box>

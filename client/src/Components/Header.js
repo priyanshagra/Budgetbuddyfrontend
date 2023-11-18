@@ -15,6 +15,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { CryptoState } from "./CryptoContext";
 import { useCookies } from "react-cookie";
+import SideDrawer from "../Components/SideDrawer";
 const useStyles = makeStyles((theme) => ({
   title: {
     flex: 1,
@@ -44,6 +45,12 @@ const Header = (props) => {
       <ThemeProvider>
         <AppBar color="transparent" position="static">
           <Container>
+            <Typography
+              className={classes.title}
+              variant="h6"
+            >
+              {<SideDrawer />}
+            </Typography>
             <Toolbar>
               {(cookies.name || props.dash) && (
                 <Typography

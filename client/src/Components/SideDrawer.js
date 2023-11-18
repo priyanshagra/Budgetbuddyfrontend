@@ -19,24 +19,24 @@ import {
 import { Tooltip } from "@chakra-ui/tooltip";
 import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { Avatar } from "@chakra-ui/avatar";
-import {  useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { useToast } from "@chakra-ui/toast";
 import ChatLoading from "../Components/ChatLoading";
 import { Spinner } from "@chakra-ui/spinner";
-import ProfileModal from "../Components/ProfileModal";
 import NotificationBadge from "react-notification-badge";
 import { Effect } from "react-notification-badge";
 import { getSender } from "../Components/ChatLogics";
 import UserListItem from "../Components/UserListItem";
 import { ChatState } from "../Components/ChatProvider";
+import { useCookies } from "react-cookie";
 
 function SideDrawer() {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
   const {
     setSelectedChat,
@@ -49,13 +49,6 @@ function SideDrawer() {
 
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const history = useNavigate();
-
-  const logoutHandler = () => {
-    localStorage.removeItem("userInfo");
-    history("/");
-  };
-
   const handleSearch = async () => {
     if (!search) {
       toast({
@@ -73,11 +66,12 @@ function SideDrawer() {
 
       const config = {
         headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
+            "Content-Type": "application/json",
+            "auth-token": cookies.UserId,
+          },
       };
 
-      const { data } = await axios.get(`/api/user?search=${search}`, config);
+      const { data } = await axios.get(`http://localhost:8000/api/auth/suser?search=${search}`, config);
 
       setLoading(false);
       setSearchResult(data);
@@ -125,13 +119,12 @@ function SideDrawer() {
   return (
     <>
       <Box
-        d="flex"
+        display='flex'
         justifyContent="space-between"
         alignItems="center"
         bg="white"
         w="100%"
         p="5px 10px 5px 10px"
-        borderWidth="5px"
       >
         <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
           <Button variant="ghost" onClick={onOpen}>
@@ -142,10 +135,10 @@ function SideDrawer() {
           </Button>
         </Tooltip>
         <Text fontSize="2xl" fontFamily="Work sans">
-          Talk-A-Tive
+          Budget Buddy
         </Text>
         <div>
-          <Menu>
+          {/* <Menu>
             <MenuButton p={1}>
               <NotificationBadge
                 count={notification.length}
@@ -169,24 +162,7 @@ function SideDrawer() {
                 </MenuItem>
               ))}
             </MenuList>
-          </Menu>
-          <Menu>
-            <MenuButton as={Button} bg="white" rightIcon={<ChevronDownIcon />}>
-              <Avatar
-                size="sm"
-                cursor="pointer"
-                name={user.name}
-                src={user.pic}
-              />
-            </MenuButton>
-            <MenuList>
-              <ProfileModal user={user}>
-                <MenuItem>My Profile</MenuItem>{" "}
-              </ProfileModal>
-              <MenuDivider />
-              <MenuItem onClick={logoutHandler}>Logout</MenuItem>
-            </MenuList>
-          </Menu>
+          </Menu> */}
         </div>
       </Box>
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
@@ -208,9 +184,7 @@ function SideDrawer() {
             ) : (
               searchResult?.map((user) => (
                 <UserListItem
-                  key={user._id}
                   user={user}
-                  handleFunction={() => accessChat(user._id)}
                 />
               ))
             )}
