@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import axios from 'axios'
 import { useState } from 'react';
 
-const BASE_URL="http://localhost:8000/api/";
+const BASE_URL="http://localhost:8000/api/transaction/";
 
 const GlobalContext = React.createContext()
 
@@ -16,9 +16,17 @@ export const GlobalProvider = ({children}) => {
             setError(err.response.data.message)
         })
     }
+    const getIncome = async () => {
+        const response=await axios.get(`${BASE_URL}get-income`)
+        setIncome(response.data)
+        console.log(response.data)
+    }
+
     return(
         <GlobalContext.Provider value={{
-            addIncome
+            addIncome,
+            getIncome,
+            income
         }}>
             {children}
         </GlobalContext.Provider>
