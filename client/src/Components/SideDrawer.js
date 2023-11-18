@@ -94,9 +94,9 @@ function SideDrawer() {
       setLoadingChat(true);
       const config = {
         headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
+            "Content-Type": "application/json",
+            "auth-token": cookies.UserId,
+          },
       };
       const { data } = await axios.post(`/api/chat`, { userId }, config);
 
@@ -185,6 +185,7 @@ function SideDrawer() {
               searchResult?.map((user) => (
                 <UserListItem
                   user={user}
+                  handleFunction={() => accessChat(user._id)}
                 />
               ))
             )}

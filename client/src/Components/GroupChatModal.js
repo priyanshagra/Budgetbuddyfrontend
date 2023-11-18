@@ -18,6 +18,7 @@ import {
   import { ChatState } from "../Components/ChatProvider";
   import UserBadgeItem from "../Components/UserBadgeItem";
   import UserListItem from "../Components/UserListItem";
+import { useCookies } from "react-cookie";
   
   const GroupChatModal = ({ children }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -27,6 +28,7 @@ import {
     const [searchResult, setSearchResult] = useState([]);
     const [loading, setLoading] = useState(false);
     const toast = useToast();
+    const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   
     const { user, chats, setChats } = ChatState();
   
@@ -54,11 +56,13 @@ import {
       try {
         setLoading(true);
         const config = {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        };
-        const { data } = await axios.get(`/api/user?search=${search}`, config);
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": cookies.UserId,
+              },
+          };
+    
+          const { data } = await axios.get(`http://localhost:8000/api/auth/suser?search=${search}`, config);
         console.log(data);
         setLoading(false);
         setSearchResult(data);
@@ -97,7 +101,7 @@ import {
           },
         };
         const { data } = await axios.post(
-          `/api/chat/group`,
+          `http://localhost:8000/api/chat`,
           {
             name: groupChatName,
             users: JSON.stringify(selectedUsers.map((u) => u._id)),

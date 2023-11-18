@@ -33,29 +33,6 @@ const Dashboard = (props) => {
   console.log(profileImageURL);
   const navigate = useNavigate();
 
-<<<<<<< Updated upstream
-=======
-  const deletecache = async () => {
-    props.setforlogin2();
-    try {
-      removeCookie("AuthToken");
-      removeCookie("UserId");
-      removeCookie("email");
-      removeCookie("name");
-      removeCookie("pic");
-      removeCookie("maxexpense");
-      removeCookie("minexpense");
-      removeCookie("maxsalary");
-      removeCookie("minsalary");
-      
-      navigate("/");
-    } catch (error) {
-      console.error("Error clearing cache:", error);
-    }
-  };
-
-  
->>>>>>> Stashed changes
 
   return (
     <div class="flex h-screen bg-gray-100 font-poppins antialiased">
