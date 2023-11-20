@@ -68,14 +68,16 @@ const Signup = (props) => {
   };
 
   return (
-    <div>
-      <button className="flex w-auto justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+    <div className="flex flex-col items-center justify-center h-screen">
+      <div className="text-2xl font-bold mb-4 ">
+      <button className="flex w-1/4   rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ">
         <Link to="/emailcheck">Login</Link>
       </button>
-      <button className="flex w-auto justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+      <button className="flex w-1/4  rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
         <Link to="/authemail">Signup</Link>
       </button>
       <GoogleLogin
+      
               clientId="504611249331-3l8vq2l7k662aof3rllqu4ldeo9cr535.apps.googleusercontent.com"
               buttonText="Sign in with Google"
               onSuccess={responseGoogle}
@@ -83,6 +85,7 @@ const Signup = (props) => {
               cookiePolicy={"single_host_origin"}
               
             />
+    </div>
     </div>
   );
 };
