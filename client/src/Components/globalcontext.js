@@ -16,6 +16,7 @@ export const GlobalProvider = ({children}) => {
             setError(err.response.data.message)
         })
     }
+<<<<<<< Updated upstream
     const addExpense = async (income) => {
         const response = await axios.post(`${BASE_URL}add-expense`, income)
             .catch((err) =>{
@@ -25,6 +26,17 @@ export const GlobalProvider = ({children}) => {
     return(
         <GlobalContext.Provider value={{
             addIncome ,addExpense
+=======
+    const getIncome = async () => {
+        const response=await axios.get(`${BASE_URL}get-income`)
+        
+    }
+    return(
+        <GlobalContext.Provider value={{
+            addIncome,
+            getIncome,
+            income
+>>>>>>> Stashed changes
         }}>
             {children}
         </GlobalContext.Provider>

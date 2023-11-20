@@ -20,7 +20,11 @@ function Form() {
   };
 
   const handleSubmit = (e) => {
+<<<<<<< Updated upstream
     console.log(inputState);
+=======
+    // console.log(inputState)
+>>>>>>> Stashed changes
     e.preventDefault();
     addIncome(inputState);
   };
