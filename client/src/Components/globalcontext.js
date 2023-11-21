@@ -25,14 +25,6 @@ export const GlobalProvider = ({children}) => {
             })
         getIncomes()
     }
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    const addExpense = async (income) => {
-        const response = await axios.post(`${BASE_URL}add-expense`, income)
-            .catch((err) =>{
-                setError(err.response.data.message)
-            })
-=======
 
     const getIncomes = async () => {
         const config = {
@@ -43,7 +35,6 @@ export const GlobalProvider = ({children}) => {
           };
         const response = await axios.get(`${BASE_URL}get-income`,config)
         setIncomes(response.data.income)
->>>>>>> Stashed changes
     }
 
     const deleteIncome = async (id) => {
@@ -115,20 +106,6 @@ export const GlobalProvider = ({children}) => {
 
     return (
         <GlobalContext.Provider value={{
-<<<<<<< Updated upstream
-            addIncome ,addExpense
-=======
-    const getIncome = async () => {
-        const response=await axios.get(`${BASE_URL}get-income`)
-        
-    }
-    return(
-        <GlobalContext.Provider value={{
-            addIncome,
-            getIncome,
-            income
->>>>>>> Stashed changes
-=======
             addIncome,
             getIncomes,
             incomes,
@@ -143,7 +120,6 @@ export const GlobalProvider = ({children}) => {
             transactionHistory,
             error,
             setError
->>>>>>> Stashed changes
         }}>
             {children}
         </GlobalContext.Provider>

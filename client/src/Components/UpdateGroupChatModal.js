@@ -35,8 +35,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
   const [renameloading, setRenameLoading] = useState(false);
   const toast = useToast();
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
-  const { notification, setNotification } =
-  ChatState();
+  
 
   const { selectedChat, setSelectedChat } = ChatState();
 
@@ -98,7 +97,6 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         config
       );
       setmoneyLoading(false);
-      setNotification([, ...notification]);
       toast({
         title: "Amount is requested to everyone",
         status: "success",

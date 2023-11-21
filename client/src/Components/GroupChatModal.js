@@ -101,11 +101,7 @@ import { useCookies } from "react-cookie";
               },
           };
         const { data } = await axios.post(
-<<<<<<< Updated upstream
-          `http://localhost:8000/api/chat`,
-=======
           `http://localhost:8000/api/chat/group`,
->>>>>>> Stashed changes
           {
             name: groupChatName,
             users: JSON.stringify(selectedUsers.map((u) => u._id)),

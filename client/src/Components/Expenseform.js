@@ -5,18 +5,6 @@ import Button from './Button';
 import { plus } from './Icons';
 import { useCookies } from 'react-cookie';
 
-<<<<<<< Updated upstream
-function Expenseform() {
-  const { addExpense } = useGlobalContext();
-  const [inputState, setInputState] = useState({
-    title: "",
-    amount: "",
-    date: "",
-    category: "",
-    description: "",
-  });
-=======
->>>>>>> Stashed changes
 
 function ExpenseForm() {
     const [cookies, setCookie, removeCookie] = useCookies(["user"]);
@@ -32,17 +20,10 @@ function ExpenseForm() {
 
     const { title, amount, date, category,description } = inputState;
 
-<<<<<<< Updated upstream
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    addExpense(inputState);
-  };
-=======
     const handleInput = name => e => {
         setInputState({...inputState, [name]: e.target.value})
         setError('')
     }
->>>>>>> Stashed changes
 
     const handleSubmit = e => {
         e.preventDefault()

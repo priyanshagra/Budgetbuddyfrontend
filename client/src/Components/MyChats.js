@@ -26,14 +26,10 @@ const MyChats = ({ fetchAgain }) => {
         },
       };
 
-<<<<<<< Updated upstream
-      const { data } = await axios.get("http://localhost:8000/api/chat", config);
-=======
       const { data } = await axios.get(
         "http://localhost:8000/api/chat",
         config
       );
->>>>>>> Stashed changes
       setChats(data);
     } catch (error) {
       toast({
