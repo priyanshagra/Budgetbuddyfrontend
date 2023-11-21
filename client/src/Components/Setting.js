@@ -8,7 +8,7 @@ const Setting = (props) => {
     const [cookies, setCookie, removeCookie] = useCookies(["user"]);
     let navigate = useNavigate();
     const deletecache = async () => {
-        props.setforlogin2();
+        
         try {
           removeCookie("AuthToken");
           removeCookie("UserId");
@@ -20,6 +20,7 @@ const Setting = (props) => {
           removeCookie("maxsalary");
           removeCookie("minsalary");
           removeCookie("currency");
+          props.setforlogin2();
           navigate("/");
         } catch (error) {
           console.error("Error clearing cache:", error);
