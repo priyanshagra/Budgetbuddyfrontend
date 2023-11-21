@@ -85,13 +85,6 @@ const Header = (props) => {
               <Typography
                 className={classes.title}
                 variant="h6"
-                onClick={() => history("/setting")}
-              >
-                <span class="">Setting</span>
-              </Typography>
-              <Typography
-                className={classes.title}
-                variant="h6"
                 onClick={() => history("/chats")}
               >
                 <span class="">Chats</span>

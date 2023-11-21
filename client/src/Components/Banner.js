@@ -1,5 +1,13 @@
 import { Container, makeStyles, Typography } from "@material-ui/core";
+import { useDisclosure } from "@chakra-ui/hooks";
 import Carousel from "./Carousel";
+import {
+    Drawer,
+    DrawerBody,
+    DrawerContent,
+    DrawerHeader,
+    DrawerOverlay,
+  } from "@chakra-ui/modal";
 
 const useStyles = makeStyles((theme) => ({
   banner: {
@@ -11,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     paddingTop: 25,
     justifyContent: "space-around",
+    color:"white"
   },
   tagline: {
     display: "flex",
@@ -28,21 +37,50 @@ const useStyles = makeStyles((theme) => ({
 
 function Banner() {
   const classes = useStyles();
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <div className={classes.banner}>
       <Container className={classes.bannerContent}>
         <div className={classes.tagline}>
+          <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
+            <DrawerOverlay />
+            <DrawerContent>
+              <DrawerHeader borderBottomWidth="1px">Search Users</DrawerHeader>
+              <DrawerBody>
+                {/* <Box d="flex" pb={2}>
+                  <Input
+                    placeholder="Search by name or email"
+                    mr={2}
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
+                  <Button onClick={handleSearch}>Go</Button>
+                </Box>
+                {loading ? (
+                  <ChatLoading />
+                ) : (
+                  searchResult?.map((user) => (
+                    <UserListItem
+                      key={user._id}
+                      user={user}
+                      handleFunction={() => accessChat(user._id)}
+                    />
+                  ))
+                )}
+                {loadingChat && <Spinner ml="auto" d="flex" />} */}
+              </DrawerBody>
+            </DrawerContent>
+          </Drawer>
           <Typography
             variant="h2"
             style={{
-                color: "darkgrey",
+              color: "darkgrey",
               fontWeight: "bold",
               marginBottom: 15,
               fontFamily: "Montserrat",
             }}
           >
-           Eliter $ Crypto 
+            Eliter $ Crypto
           </Typography>
           <Typography
             variant="subtitle2"
@@ -55,7 +93,7 @@ function Banner() {
             Get all the Info regarding your favorite Crypto Currency
           </Typography>
         </div>
-        <Carousel/>
+        <Carousel />
       </Container>
     </div>
   );
