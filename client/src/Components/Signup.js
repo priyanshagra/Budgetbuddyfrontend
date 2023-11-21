@@ -5,6 +5,10 @@ import { GoogleLogin } from "react-google-login";
 import { useCookies } from "react-cookie";
 import Body from "./Body"
 import Footer from "./Footer"
+import BB from "./BB"
+import HHH from "./HHH"
+
+import Timeline from "./TimeLine"
 const Signup = (props) => {
   const [credentials, setCredentials] = useState({ email: "" });
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
@@ -71,10 +75,13 @@ const Signup = (props) => {
   return (
 
 <>
-    <div className="bg-gray-900">
+
+<HHH></HHH>
+    <div className="bg-gray-900 flex justify-center">
+      
 
     <div className="flex justify-end p-4">
-      <div className=" bg-blue-900 p-4 rounded shadow-md ">
+      <div className=" bg-blue-300 p-4 rounded shadow-md ">
       <button className=" m-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
         <Link to="/emailcheck">Login</Link>
       </button>
@@ -94,7 +101,11 @@ const Signup = (props) => {
     </div>
     </div>
     </div>
+   
+    
     <Body></Body>
+    <BB></BB>
+    <Timeline></Timeline>
     <Footer></Footer>
     </>
 
