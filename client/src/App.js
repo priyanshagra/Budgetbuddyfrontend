@@ -18,7 +18,7 @@ import CoinPage from './Components/Coinpage.js';
 import Header from './Components/Header.js';
 import Setting from './Components/Setting.js';
 import Chatpage from "./Components/Chatpage";
-import Start from "../src/Components/HomePage/Start.js"
+
 const App = () => {
     const [cookies, setCookie, removeCookie] = useCookies(['user'])
 
@@ -59,6 +59,7 @@ const App = () => {
   return (
     
       <BrowserRouter>
+      
        <Alert alert={alert}/>
       {(login||cookies.name)&&<Header dash={dash}/>} 
       
