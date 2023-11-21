@@ -9,6 +9,7 @@ import BB from "./BB"
 import HHH from "./HHH"
 import Path from "./Path"
 
+
 import Timeline from "./TimeLine"
 const Signup = (props) => {
   const [credentials, setCredentials] = useState({ email: "" });
@@ -105,7 +106,6 @@ const Signup = (props) => {
    
     
     <Body></Body>
-
     <Path></Path>
     <Timeline></Timeline>
     <Footer></Footer>

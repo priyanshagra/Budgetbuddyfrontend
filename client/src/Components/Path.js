@@ -19,7 +19,10 @@ const Path = () => {
           </div>
           <div class="flex-grow pl-4">
             <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">STEP 1</h2>
-            <p class="leading-relaxed">VHS cornhole pop-up, try-hard 8-bit iceland helvetica. Kinfolk bespoke try-hard cliche palo santo offal.</p>
+            <p class="leading-relaxed"></p><span className=" text-2xl text-black">User Onboarding</span>:
+
+Objective: Enable users to quickly register and set up their profiles.
+Implementation: Streamlined registration process with essential details. User-friendly profile setup for initial financial information.
           </div>
         </div>
         <div class="flex relative pb-12">
@@ -33,7 +36,10 @@ const Path = () => {
           </div>
           <div class="flex-grow pl-4">
             <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">STEP 2</h2>
-            <p class="leading-relaxed">Vice migas literally kitsch +1 pok pok. Truffaut hot chicken slow-carb health goth, vape typewriter.</p>
+            <p class="leading-relaxed"><span className="text-2xl text-black">Transaction Logging</span>:
+
+Objective: Simplify the entry of income and expenses for users.
+Implementation: Provide an intuitive interface for users to log transactions. Include categorization options for better organization.</p>
           </div>
         </div>
         <div class="flex relative pb-12">
@@ -48,7 +54,10 @@ const Path = () => {
           </div>
           <div class="flex-grow pl-4">
             <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">STEP 3</h2>
-            <p class="leading-relaxed">Coloring book nar whal glossier master cleanse umami. Salvia +1 master cleanse blog taiyaki.</p>
+            <p class="leading-relaxed"><span className="text-2xl text-black">Financial Analysis</span>:
+
+Objective: Offer users insights into their financial activities.
+Implementation: Generate visual reports and charts summarizing income and expenses. Implement filters and sorting for detailed analysis.</p>
           </div>
         </div>
         <div class="flex relative pb-12">
@@ -63,7 +72,10 @@ const Path = () => {
           </div>
           <div class="flex-grow pl-4">
             <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">STEP 4</h2>
-            <p class="leading-relaxed">VHS cornhole pop-up, try-hard 8-bit iceland helvetica. Kinfolk bespoke try-hard cliche palo santo offal.</p>
+            <p class="leading-relaxed"><span className="text-2xl text-black">Budget Management</span>:
+
+Objective: Assist users in setting and managing budgets.
+Implementation: Allow users to set monthly or category-specific budgets. Provide notifications for budget limits and integrate goal-setting features.</p>
           </div>
         </div>
         <div class="flex relative">
@@ -75,11 +87,15 @@ const Path = () => {
           </div>
           <div class="flex-grow pl-4">
             <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">FINISH</h2>
-            <p class="leading-relaxed">Pitchfork ugh tattooed scenester echo park gastropub whatever cold-pressed retro.</p>
+            <p class="leading-relaxed"><span className="text-2xl text-black">Smart Recommendations</span>:
+            
+
+Objective: Enhance user financial health with personalized insights.
+Implementation: Analyze spending patterns to offer savings suggestions. Integrate machine learning for more accurate and tailored recommendations.</p>
           </div>
         </div>
       </div>
-      <img class=" h-1100 w-500 lg:w-3/5 md:w-1/2 object-cover object-center rounded-lg md:mt-0 mt-12" src="https://c8.alamy.com/comp/2DAX2CD/indian-rupee-money-bag-and-two-arrows-of-profit-loss-income-expense-debit-and-credit-financial-flows-capital-movement-trade-balance-deposits-or-2DAX2CD.jpg" alt="step"/>
+      <img class=" h-1100 w-500 lg:w-3/5 md:w-1/2 object-cover object-center rounded-lg md:mt-0 mt-12" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="step"/>
     </div>
   </div>
 </section>

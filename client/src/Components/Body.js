@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
 import { useSpring, animated } from 'react-spring';
-
+import YourComponent from "./YourComponent"
 const HomePage = () => {
   const fadeIn = useSpring({
     opacity: 1,
@@ -11,7 +11,7 @@ const HomePage = () => {
   });
 
   return (
-    <div className="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-center">
+    <div className="bg-gray-900 text-white h-95 flex flex-col items-center justify-center">
       <div className="text-center mb-8">
         <animated.div style={fadeIn}>
           <h1 className="text-4xl font-bold mb-4">Welcome to Income Tracker</h1>
@@ -39,23 +39,19 @@ const HomePage = () => {
           className=" h-60 w-80 rounded-lg shadow-lg"
         />
         
+        
       </div>
+      <div></div>
+      <div>
 
-      <ScrollLink to="scroll-target" smooth={true} duration={500}>
-        <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-          Scroll Down
-        </button>
-      </ScrollLink>
+      </div>
+      <div></div>
+      <YourComponent></YourComponent>
 
-      {/* Add a scroll target */}
-      <div id="scroll-target" className="h-96">
+      
+
+      
      
-      </div>
-
-      {/* Remaining content for your homepage */}
-      <div className="mt-8">
-
-      </div>
     </div>
   );
 };
