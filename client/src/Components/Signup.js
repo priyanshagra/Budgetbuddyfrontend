@@ -7,6 +7,7 @@ import Body from "./Body"
 import Footer from "./Footer"
 import BB from "./BB"
 import HHH from "./HHH"
+import Path from "./Path"
 
 import Timeline from "./TimeLine"
 const Signup = (props) => {
@@ -104,7 +105,8 @@ const Signup = (props) => {
    
     
     <Body></Body>
-    <BB></BB>
+
+    <Path></Path>
     <Timeline></Timeline>
     <Footer></Footer>
     </>

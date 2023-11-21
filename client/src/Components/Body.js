@@ -19,12 +19,26 @@ const HomePage = () => {
         </animated.div>
       </div>
 
-      <div className="flex justify-center items-center mb-8">
+      <div className="flex space-x-16 mb-8">
         <img
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDoLAboLp5MUHq3YL8-Jf-I-Z3fmtaO83rGw&usqp=CAU"  // Add the path to your image
           alt="Income Tracker"
-          className="rounded-lg shadow-lg"
+          className=" h-60 w-80 rounded-lg shadow-lg"
         />
+                <img 
+          
+          src="https://visme.co/blog/wp-content/uploads/2021/08/Data-Visualization-thumbnail.jpg"  // Add the path to your image
+          alt="Income Tracker"
+          className=" h-60 w-80 rounded-lg shadow-lg"
+        />
+          <img 
+          
+                      
+          src="https://data.org/wp-content/uploads/2022/01/Data-Visualization-Guide.png"  
+          alt="Income Tracker"
+          className=" h-60 w-80 rounded-lg shadow-lg"
+        />
+        
       </div>
 
       <ScrollLink to="scroll-target" smooth={true} duration={500}>
@@ -34,11 +48,13 @@ const HomePage = () => {
       </ScrollLink>
 
       {/* Add a scroll target */}
-      <div id="scroll-target" className="h-96"></div>
+      <div id="scroll-target" className="h-96">
+     
+      </div>
 
       {/* Remaining content for your homepage */}
       <div className="mt-8">
-        {/* Add your remaining content here */}
+
       </div>
     </div>
   );

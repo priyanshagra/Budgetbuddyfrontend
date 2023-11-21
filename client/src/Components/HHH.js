@@ -26,7 +26,7 @@ const StickyHeader = () => {
     >
       <div className="container mx-auto flex justify-between items-center py-4">
         <div className="text-xl font-bold text-gray-800">Your Logo</div>
-        <h1 className="text-3xl text-red-900 underlined">TECH BUDDY(<span className="text-xl text-red-300">A product of Team Ganga</span>)</h1>
+        <h1 className="text-4xl font-bold text-indigo-800 mb-4">TECH BUDDY(<span className="text-xl text-yellow-500">A product of Team Ganga</span>)</h1>
 
         <nav className="space-x-4">
           <a href="#home" className="text-2xl text-gray-700 hover:text-gray-900">
