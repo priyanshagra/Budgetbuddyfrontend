@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import {gapi} from "gapi-script";
 import { GoogleLogin } from "react-google-login";
 import { useCookies } from "react-cookie";
-
+import Body from "./Body"
+import Footer from "./Footer"
 const Signup = (props) => {
   const [credentials, setCredentials] = useState({ email: "" });
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
@@ -68,16 +69,21 @@ const Signup = (props) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <div className="text-2xl font-bold mb-4 ">
-      <button className="flex w-1/4   rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ">
+
+<>
+    <div className="bg-gray-900">
+
+    <div className="flex justify-end p-4">
+      <div className=" bg-blue-900 p-4 rounded shadow-md ">
+      <button className=" m-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
         <Link to="/emailcheck">Login</Link>
       </button>
-      <button className="flex w-1/4  rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+      <button className=" m-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
         <Link to="/authemail">Signup</Link>
       </button>
       <GoogleLogin
       
+      className="bg-grey-900"
               clientId="504611249331-3l8vq2l7k662aof3rllqu4ldeo9cr535.apps.googleusercontent.com"
               buttonText="Sign in with Google"
               onSuccess={responseGoogle}
@@ -87,6 +93,11 @@ const Signup = (props) => {
             />
     </div>
     </div>
+    </div>
+    <Body></Body>
+    <Footer></Footer>
+    </>
+
   );
 };
 
