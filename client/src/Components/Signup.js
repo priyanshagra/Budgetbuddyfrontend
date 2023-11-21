@@ -8,7 +8,8 @@ import Footer from "./Footer"
 import BB from "./BB"
 import HHH from "./HHH"
 import Path from "./Path"
-
+import { ToastContainer } from 'react-toastify';
+import WelcomeToaster from "./WelcomeToaster"
 
 import Timeline from "./TimeLine"
 const Signup = (props) => {
@@ -78,6 +79,8 @@ const Signup = (props) => {
 
 <>
 
+<WelcomeToaster></WelcomeToaster>
+<ToastContainer />
 <HHH></HHH>
     <div className="bg-gray-900 flex justify-center">
       

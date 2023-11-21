@@ -3,6 +3,7 @@ import React from 'react';
 import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
 import { useSpring, animated } from 'react-spring';
 import YourComponent from "./YourComponent"
+import "./blink.css"
 const HomePage = () => {
   const fadeIn = useSpring({
     opacity: 1,
@@ -14,7 +15,9 @@ const HomePage = () => {
     <div className="bg-gray-900 text-white h-95 flex flex-col items-center justify-center">
       <div className="text-center mb-8">
         <animated.div style={fadeIn}>
-          <h1 className="text-4xl font-bold mb-4">Welcome to Income Tracker</h1>
+            <div className="blinker-container">
+          <h1 className="text-4xl font-bold mb-4 blinker-tagline">Welcome to Income Tracker</h1>
+          </div>
           <p className="text-lg">Track your income and expenses with ease.</p>
         </animated.div>
       </div>
