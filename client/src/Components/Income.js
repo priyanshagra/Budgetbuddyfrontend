@@ -12,8 +12,6 @@ const Income = () => {
             <Form/>
           </div>
           <div className="income">
-<<<<<<< Updated upstream
-=======
             {income.map((income) =>{
               console.log("hello")
                  const { _id, title, amount, date, category, description } = income;
@@ -25,7 +23,6 @@ const Income = () => {
                  category={category}
                  />          
             })}
->>>>>>> Stashed changes
           </div>
       </div>
     </div>
