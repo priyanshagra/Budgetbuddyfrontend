@@ -1,11 +1,14 @@
-import React from 'react'
+// AdvancedLoadingPage.jsx
+import React from 'react';
+import './LoadingPage.css';
 
-const Loading = () => {
+const LoadingPage = () => {
   return (
-    <div>
-      <hi>Loading</hi>
+    
+    <div className="github-loading-container">
+      <div className="github-loading-spinner"></div>
     </div>
-  )
-}
+  );
+};
 
-export default Loading
+export default LoadingPage;
