@@ -1,73 +1,90 @@
-import React, { useState } from 'react'
-import { useCookies } from 'react-cookie';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
+import logo from "./budgetbuddysignin.jpeg";
 
 const Emailcheck = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
+  let navigate = useNavigate();
 
-    const [credentials, setCredentials] = useState({ email: "", password: "" });
-    let navigate = useNavigate();
-  
-    
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-  
-      navigate("/loading");
-      const response = await fetch(
-        "http://localhost:8000/api/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: credentials.email,
-            password: credentials.password,
-          }),
-        }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    navigate("/loading");
+    const response = await fetch("http://localhost:8000/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: credentials.email,
+        password: credentials.password,
+      }),
+    });
+    const json = await response.json();
+    console.log(json);
+    if (json.success) {
+      setCookie("AuthToken", json.authtoken);
+      setCookie("UserId", json.id);
+      setCookie("email", credentials.email);
+      setCookie("name", json.name);
+      setCookie("pic", json.pic);
+      setCookie("maxexpense", json.maxexpense);
+      setCookie("minexpense", json.minexpense);
+      setCookie("maxsalary", json.maxsalary);
+      setCookie("minsalary", json.minsalary);
+      setCookie("currency", json.currency);
+      props.showAlert("login successfull ", "success");
+      props.setforlogin();
+      navigate("/");
+    } else {
+      props.showAlert(
+        "invalid details or not created account yet go on signup page",
+        "danger"
       );
-      const json = await response.json();
-      console.log(json)
-      if (json.success) {
-        setCookie("AuthToken", json.authtoken);
-        setCookie("UserId", json.id);
-        setCookie("email", credentials.email);
-        setCookie("name", json.name);
-        setCookie("pic", json.pic);
-        setCookie("maxexpense", json.maxexpense);
-        setCookie("minexpense", json.minexpense);
-        setCookie("maxsalary", json.maxsalary);
-        setCookie("minsalary", json.minsalary);
-        setCookie("currency", json.currency);
-        props.showAlert("login successfull ", "success");
-        props.setforlogin();
-        navigate("/");
-      } else {
-        props.showAlert(
-          "invalid details or not created account yet go on signup page",
-          "danger"
-        );
-        navigate("/");
-      }
-    };
-    const onChange = (e) => {
-      setCredentials({ ...credentials, [e.target.name]: e.target.value });
-    };
+      navigate("/");
+    }
+  };
+  const onChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
 
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 h-screen flex items-center justify-center bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 text-white text-white text-4xl font-bold animate-pulse">
-            Sign in to your account
-          </h2>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
+      <div className="sm:mx-auto sm:w-full sm:max-w-sm bg-pink-100 h-screen rounded-full m-5 p-8 shadow-lg">
+        <h2 className="text-center text-4xl font-bold text-white mt-6 mb-6">
+        <span className="text-pink-500">Budget Buddy</span>
+        </h2>
+        <h2 className="text-center text-4xl font-bold text-white mb-6">
+          Sign in
+        </h2>
+
+        <div className="flex flex-row justify-center items-center">
+          <div className="rounded-lg p-2 bg-pink-100 hover:bg-black transition">
+            <img src={logo} alt="" className="h-20 w-20" />
+          </div>
+
         </div>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST" onSubmit={handleSubmit} >
+        <div className="rounded-lg p-2 bg-pink-100 hover:bg-pink-200 transition">
+          {/* <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 text-white text-white text-4xl font-bold animate-pulse">
+            Sign in to your account
+          </h2> */}
+
+          <form
+            className="mt-6 space-y-6"
+            action="#"
+            method="POST"
+            onSubmit={handleSubmit}
+          >
             <div>
-              <label htmlFor="email" className="text-white block text-sm font-medium leading-6 text-gray-900">
+              <label
+                htmlFor="email"
+                className="ml-1 text-white block text-sm font-medium leading-6 text-gray-900"
+              >
                 Email address
               </label>
               <div className="mt-2">
@@ -79,18 +96,24 @@ const Emailcheck = (props) => {
                   required
                   value={credentials.email}
                   onChange={onChange}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
 
             <div>
               <div className="flex items-center justify-between">
-                <label htmlFor="password" className="text-white block text-sm font-medium leading-6 text-gray-900">
+                <label
+                  htmlFor="password"
+                  className="ml-1 text-white block text-sm font-medium leading-6 text-gray-900"
+                >
                   Password
                 </label>
                 <div className="text-sm">
-                  <a href="/forgotpassword" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                  <a
+                    href="/forgotpassword"
+                    className="font-semibold text-indigo-600 hover:text-indigo-500"
+                  >
                     Forgot password?
                   </a>
                 </div>
@@ -104,7 +127,7 @@ const Emailcheck = (props) => {
                   required
                   value={credentials.password}
                   onChange={onChange}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -119,8 +142,9 @@ const Emailcheck = (props) => {
             </div>
           </form>
         </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Emailcheck
+export default Emailcheck;
