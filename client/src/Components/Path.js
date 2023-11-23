@@ -95,7 +95,7 @@ Implementation: Analyze spending patterns to offer savings suggestions. Integrat
           </div>
         </div>
       </div>
-      <img class=" h-1100 w-500 lg:w-3/5 md:w-1/2 object-cover object-center rounded-lg md:mt-0 mt-12" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="step"/>
+      <img class=" lg:h-screen w-500  lg:w-3/5 md:w-1/2 object-cover object-center rounded-lg md:mt-0 mt-12 " src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="step"/>
     </div>
   </div>
 </section>
