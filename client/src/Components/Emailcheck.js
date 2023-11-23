@@ -63,10 +63,10 @@ const Emailcheck = (props) => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm bg-pink-100 h-screen rounded-full m-5 p-8 shadow-lg">
-        <h2 className="text-center text-4xl font-bold text-white mt-6 mb-6">
-        <span className="text-pink-500">Budget Buddy</span>
+        <h2 className="text-center text-4xl font-bold text-white mt-6 mb-6 animate-pulse">
+        <span className="text-green-700">Budget Buddy</span>
         </h2>
-        <h2 className="text-center text-4xl font-bold text-white mb-6">
+        <h2 className="text-center text-4xl font-bold text-black mb-6">
           Sign in
         </h2>
 
