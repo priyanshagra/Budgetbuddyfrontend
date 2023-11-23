@@ -1,0 +1,9 @@
+/* WelcomeToaster.css */
+/* Customize styles as needed */
+.Toastify__toast {
+
+    background-color: #564caf;
+    color: white;
+    font-size: 16px;
+  }
+  

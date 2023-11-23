@@ -1,13 +1,15 @@
 {
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-brands-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "axios": "^0.27.2",
     "font-awesome": "^4.7.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-axios": "^2.0.6",
-    "react-datepicker": "^4.21.0"
-  },
-  "devDependencies": {
-    "tailwindcss": "^3.3.5"
+    "react-datepicker": "^4.21.0",
+    "react-scroll": "^1.9.0",
+    "react-spring": "^9.7.3"
   }
 }

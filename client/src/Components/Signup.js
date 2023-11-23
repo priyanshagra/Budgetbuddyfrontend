@@ -3,8 +3,16 @@ import { Link, useNavigate } from "react-router-dom";
 import {gapi} from "gapi-script";
 import { GoogleLogin } from "react-google-login";
 import { useCookies } from "react-cookie";
-import { useToast } from "@chakra-ui/react";
+import Body from "./Body"
+import Footer from "./Footer"
+import BB from "./BB"
+import HHH from "./HHH"
+import Path from "./Path"
+import { ToastContainer } from 'react-toastify';
+import WelcomeToaster from "./WelcomeToaster"
 
+import Timeline from "./TimeLine"
+import { useToast } from "@chakra-ui/react";
 const Signup = () => {
   const [credentials, setCredentials] = useState({ email: "" });
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
@@ -78,14 +86,26 @@ const Signup = () => {
   };
 
   return (
-    <div>
-      <button className="flex w-auto justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-        <Link to="/emailcheck">sign in</Link>
+
+<>
+
+<WelcomeToaster></WelcomeToaster>
+<ToastContainer />
+<HHH></HHH>
+    <div className="bg-gray-900 flex justify-center">
+      
+
+    <div className="flex justify-end p-4">
+      <div className=" bg-blue-300 p-4 rounded shadow-md ">
+      <button className=" m-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        <Link to="/emailcheck">Login</Link>
       </button>
-      <button className="flex w-auto justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+      <button className=" m-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
         <Link to="/authemail">Signup</Link>
       </button>
       <GoogleLogin
+      
+      className="bg-grey-900"
               clientId="504611249331-3l8vq2l7k662aof3rllqu4ldeo9cr535.apps.googleusercontent.com"
               buttonText="Sign in with Google"
               onSuccess={responseGoogle}
@@ -94,6 +114,16 @@ const Signup = () => {
               
             />
     </div>
+    </div>
+    </div>
+   
+    
+    <Body></Body>
+    <Path></Path>
+    <Timeline></Timeline>
+    <Footer></Footer>
+    </>
+
   );
 };
 
