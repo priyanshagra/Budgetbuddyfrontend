@@ -40,7 +40,6 @@ function SideDrawer() {
 
   const {
     setSelectedChat,
-    user,
     notification,
     setNotification,
     chats,
@@ -98,8 +97,8 @@ function SideDrawer() {
             "auth-token": cookies.UserId,
           },
       };
-      const { data } = await axios.post(`/api/chat`, { userId }, config);
-
+      const { data } = await axios.post(`http://localhost:8000/api/chat`, { userId }, config);
+      console.log(data);
       if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
       setSelectedChat(data);
       setLoadingChat(false);
@@ -138,7 +137,7 @@ function SideDrawer() {
           Budget Buddy
         </Text>
         <div>
-          {/* <Menu>
+         <Menu>
             <MenuButton p={1}>
               <NotificationBadge
                 count={notification.length}
@@ -158,11 +157,11 @@ function SideDrawer() {
                 >
                   {notif.chat.isGroupChat
                     ? `New Message in ${notif.chat.chatName}`
-                    : `New Message from ${getSender(user, notif.chat.users)}`}
+                    : `New Message from ${getSender(cookies.UserId, notif.chat.users)}`}
                 </MenuItem>
               ))}
             </MenuList>
-          </Menu> */}
+          </Menu>
         </div>
       </Box>
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
@@ -184,6 +183,7 @@ function SideDrawer() {
             ) : (
               searchResult?.map((user) => (
                 <UserListItem
+                  key={user._id}
                   user={user}
                   handleFunction={() => accessChat(user._id)}
                 />

@@ -6,7 +6,7 @@ const UserListItem = (props) => {
 
   return (
     <Box
-   
+      onClick={props.handleFunction}
       cursor="pointer"
       bg="#E8E8E8"
       _hover={{
@@ -14,7 +14,7 @@ const UserListItem = (props) => {
         color: "white",
       }}
       w="100%"
-      d="flex"
+      display="flex"
       alignItems="center"
       color="black"
       px={3}

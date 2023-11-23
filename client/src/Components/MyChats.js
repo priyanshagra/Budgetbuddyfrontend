@@ -11,25 +11,25 @@ import { ChatState } from "../Components/ChatProvider";
 import { useCookies } from "react-cookie";
 
 const MyChats = ({ fetchAgain }) => {
-
-  const [loggedUser, setLoggedUser] = useState();
-
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
-  const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
+  const { selectedChat, setSelectedChat, chats, setChats } = ChatState();
 
   const toast = useToast();
 
   const fetchChats = async () => {
     // console.log(user._id);
     try {
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": cookies.UserId,
-              },
-          };
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": cookies.UserId,
+        },
+      };
 
-      const { data } = await axios.get("http://localhost:8000/api/chat", config);
+      const { data } = await axios.get(
+        "http://localhost:8000/api/chat",
+        config
+      );
       setChats(data);
     } catch (error) {
       toast({
@@ -44,13 +44,14 @@ const MyChats = ({ fetchAgain }) => {
   };
 
   useEffect(() => {
+    console.log(selectedChat);
     fetchChats();
     // eslint-disable-next-line
   }, [fetchAgain]);
 
   return (
     <Box
-      d={{ base: selectedChat ? "none" : "flex", md: "flex" }}
+      diplay={{ base: selectedChat ? "none" : "flex", md: "flex" }}
       flexDir="column"
       alignItems="center"
       p={3}
@@ -64,24 +65,25 @@ const MyChats = ({ fetchAgain }) => {
         px={3}
         fontSize={{ base: "28px", md: "30px" }}
         fontFamily="Work sans"
-        d="flex"
+        diplay="flex"
         w="100%"
         justifyContent="space-between"
         alignItems="center"
       >
-        My Chats
+        <Box>My Chats</Box>
+
         <GroupChatModal>
           <Button
-            d="flex"
+            diplay="flex"
             fontSize={{ base: "17px", md: "10px", lg: "17px" }}
             rightIcon={<AddIcon />}
           >
             New Group Chat
           </Button>
         </GroupChatModal>
-      </Box>
+      
       <Box
-        d="flex"
+        diplay="flex"
         flexDir="column"
         p={3}
         bg="#F8F8F8"
@@ -105,7 +107,7 @@ const MyChats = ({ fetchAgain }) => {
               >
                 <Text>
                   {!chat.isGroupChat
-                    ? getSender(loggedUser, chat.users)
+                    ? getSender(cookies.UserId, chat.users)
                     : chat.chatName}
                 </Text>
                 {chat.latestMessage && (
@@ -122,6 +124,7 @@ const MyChats = ({ fetchAgain }) => {
         ) : (
           <ChatLoading />
         )}
+      </Box>
       </Box>
     </Box>
   );
