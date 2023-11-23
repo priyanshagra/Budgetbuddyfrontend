@@ -2,10 +2,12 @@ import { Box } from "@chakra-ui/layout";
 import { useState } from "react";
 import Chatbox from "../Components/Chatbox";
 import MyChats from "../Components/MyChats";
+import { ChatState } from "./ChatProvider";
 
 
 const Chatpage = () => {
   const [fetchAgain, setFetchAgain] = useState(false);
+  const { selectedChat, setSelectedChat } = ChatState();
 
   return (
     <div style={{ width: "100%" }}>

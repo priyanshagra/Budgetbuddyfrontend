@@ -1,10 +1,12 @@
+import { useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
-const Getotp = (props) => {
+const Getotp = () => {
   const [credentials, setCredentials] = useState({ otp: "" });
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  const toast = useToast();
   let navigate = useNavigate();
   const handleSubmit = async (e) => {
     navigate("/loading");
@@ -20,7 +22,15 @@ const Getotp = (props) => {
     });
     const json = await response.json();
     if (json.success) {
-      props.showAlert("Otp is correct", "success");
+
+      toast({
+        title: "Congratulation",
+        description: "Otp is correct",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-left",
+      });
       const response1 = await fetch(
         "http://localhost:8000/api/auth/createuser2",
         {
@@ -38,14 +48,35 @@ const Getotp = (props) => {
       if (json.success) {
         setCookie("AuthToken", json.authtoken);
         setCookie("UserId", json.id);
-        props.showAlert(" signup successfull", "success");
+        toast({
+            title: "Welcome",
+            description: "signup successfull",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom-left",
+          });
         navigate("/onboarding");
       } else {
-        props.showAlert("signup unsuccessfull", "danger");
+        toast({
+            title: "Error Occured!",
+            description: "signup unsuccessfull",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom-left",
+          });
         navigate("/")
       }
     } else {
-      props.showAlert("Otp is incorrect ", "danger");
+      toast({
+        title: "Error Occured!",
+        description: "Otp is incorrect",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-left",
+      });
       navigate("/authemail");
     }
   };

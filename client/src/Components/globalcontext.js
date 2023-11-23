@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import axios from 'axios'
 import { useState } from 'react';
 import { useCookies } from 'react-cookie';
+import { useToast } from '@chakra-ui/react';
 
 const BASE_URL="http://localhost:8000/api/transaction/";
 
@@ -15,14 +16,32 @@ export const GlobalProvider = ({children}) => {
     const [incomes, setIncomes] = useState([])
     const [expenses, setExpenses] = useState([])
     const [error, setError] = useState(null)
+    const toast = useToast();
 
     //calculate incomes
     const addIncome = async (income) => {
         console.log(income);
         const response = await axios.post(`${BASE_URL}add-income`, income)
+       
             .catch((err) =>{
                 setError(err.response.data.message)
-            })
+                toast({
+                    title: "Error Occured!",
+                    description: err.response.data.message,
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true,
+                    position: "bottom-left",
+                  });
+            }) 
+            toast({
+            title: "successfull",
+            description: "income is added",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom-left",
+          });
         getIncomes()
     }
 
@@ -58,7 +77,23 @@ export const GlobalProvider = ({children}) => {
         const response = await axios.post(`${BASE_URL}add-expense`, income)
             .catch((err) =>{
                 setError(err.response.data.message)
+                toast({
+                    title: "Error Occured!",
+                    description: err.response.data.message,
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true,
+                    position: "bottom-left",
+                  });
             })
+            toast({
+                title: "successfull",
+                description: "expense is added",
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom-left",
+              });
         getExpenses()
     }
 

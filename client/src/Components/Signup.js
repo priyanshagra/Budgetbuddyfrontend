@@ -3,11 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import {gapi} from "gapi-script";
 import { GoogleLogin } from "react-google-login";
 import { useCookies } from "react-cookie";
+import { useToast } from "@chakra-ui/react";
 
-const Signup = (props) => {
+const Signup = () => {
   const [credentials, setCredentials] = useState({ email: "" });
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
-
+  const toast = useToast();
   let navigate = useNavigate();
   useEffect(() => {
     gapi.load("client:auth2", () => {
@@ -43,26 +44,35 @@ const Signup = (props) => {
       setCookie("AuthToken", json.authtoken);
       setCookie("UserId", json.id);
       setCookie("email", response.profileObj.email);
-      props.setforlogin();
-      props.showAlert("Google signup successfull", "success");
+      toast({
+        title: "Welcome",
+        description: "Google signup successfull",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-left",
+      });
       console.log(json.success1)
       if(json.success1)
       {
         setCookie("name", json.name);
         setCookie("pic", json.pic);
-        setCookie("maxexpense", json.maxexpense);
-        setCookie("minexpense", json.minexpense);
-        setCookie("maxsalary", json.maxsalary);
-        setCookie("minsalary", json.minsalary);
-        setCookie("currency", json.currency);
         navigate('/');
+        window.location.reload()
       }
       else
       {
         navigate('/onboarding');
       }
     } else {
-      props.showAlert("Goggle signup unsuccessfull", "danger");
+      toast({
+        title: "Error Occured!",
+        description: "Goggle signup unsuccessfull",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-left",
+      });
       navigate("/")
     }
   };
