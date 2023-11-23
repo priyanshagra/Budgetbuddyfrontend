@@ -8,12 +8,14 @@ import { SingleCoin } from "./Config/api";
 import { numberWithCommas } from "./CoinsTable";
 import { CryptoState } from "./CryptoContext";
 import { useCookies } from "react-cookie";
+import { useToast } from "@chakra-ui/react";
 
-const CoinPage = (props) => {
+const CoinPage = () => {
 
 
     const [cookies, setCookie, removeCookie] = useCookies(["user"]);
-  
+
+    const toast = useToast();
     const { id } = useParams();
     const addtowatch = async (e) => {
       e.preventDefault();
@@ -34,12 +36,23 @@ const CoinPage = (props) => {
       const json = await response.json();
       console.log(json)
       if (json.success) {
-        props.showAlert("Added to watchlist", "success");
+        toast({
+            title: "Successfull",
+            description: "Added to watchlist",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom-left",
+          });
       } else {
-        props.showAlert(
-          "invalid details or not created account yet go on signup page",
-          "danger"
-        );
+        toast({
+            title: "Error Occured!",
+            description: "Try again",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom-left",
+          });
       }
     };
 

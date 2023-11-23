@@ -30,7 +30,7 @@ import { useCookies } from "react-cookie";
     const toast = useToast();
     const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   
-    const { user, chats, setChats } = ChatState();
+    const { chats, setChats } = ChatState();
   
     const handleGroup = (userToAdd) => {
       if (selectedUsers.includes(userToAdd)) {
@@ -96,12 +96,12 @@ import { useCookies } from "react-cookie";
   
       try {
         const config = {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        };
+            headers: {
+                "auth-token": cookies.UserId
+              },
+          };
         const { data } = await axios.post(
-          `http://localhost:8000/api/chat`,
+          `http://localhost:8000/api/chat/group`,
           {
             name: groupChatName,
             users: JSON.stringify(selectedUsers.map((u) => u._id)),
