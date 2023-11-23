@@ -115,8 +115,8 @@ const Onboarding = () => {
 
   return (
     <div>
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm bg-pink-100 h-full m-5 p-8 shadow-lg">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-stone-800 via-stone-400 to-neutral-700">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm bg-neutral-200 h-full m-5 p-8 shadow-lg">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             className="mx-auto h-10 w-auto"
@@ -126,8 +126,8 @@ const Onboarding = () => {
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Register to
           </h2>
-          <h2 className="text-center text-4xl font-bold text-white mb-6">
-        <span className="text-pink-500">Budget Buddy</span>
+          <h2 className="text-center text-4xl font-bold text-white mb-6 animate-pulse">
+        <span className="text-green-700">Budget Buddy</span>
         </h2>
         </div>
 
@@ -147,7 +147,7 @@ const Onboarding = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="pl-1 block text-sm font-medium leading-6 text-gray-900"
               >
                 Username
               </label>
@@ -159,7 +159,7 @@ const Onboarding = () => {
                   autoComplete="name"
                   required
                   onChange={(e) => setName(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -168,7 +168,7 @@ const Onboarding = () => {
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="pl-1 block text-sm font-medium leading-6 text-gray-900"
                 >
                   Password
                 </label>
@@ -181,7 +181,7 @@ const Onboarding = () => {
                   autoComplete="current-password"
                   required
                   onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -189,7 +189,7 @@ const Onboarding = () => {
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="pl-1 block text-sm font-medium leading-6 text-gray-900"
                 >
                   Confirm Password
                 </label>
@@ -202,7 +202,7 @@ const Onboarding = () => {
                   autoComplete="current-password"
                   required
                   onChange={(e) => setConfirmpassword(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -211,7 +211,7 @@ const Onboarding = () => {
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="pl-1 block text-sm font-medium leading-6 text-gray-900"
                 >
                   Upload your image
                 </label>
@@ -224,17 +224,17 @@ const Onboarding = () => {
                   autoComplete="pic"
                   required
                   onChange={(e) => postDetails(e.target.files[0])}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full justify-center rounded-md bg-red-500 hover:bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 disabled={picLoading}
               >
-                Sign in
+                Register
               </button>
             </div>
           </form>

@@ -90,11 +90,11 @@ const Getotp = () => {
       <div className="h-screen w-screen flex bg-gradient-to-r from-gray-700 via-gray-300 to-gray-900">
         <div className="rounded-full border-4 h-90 bg-back flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-gradient-to-r from-gray-900 via-gray-400 to-gray-700">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <h2 className=" text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 animate-pulse">
+            <h2 className=" text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             AUTHENTICATION SYSTEM
             </h2>
-            <h2 className="mb-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 animate-pulse">
-              <span>Budget Buddy</span>
+            <h2 className="mb-10 text-center text-2xl font-bold leading-9 animate-pulse tracking-tight text-gray-900 animate-pulse">
+              <span className="text-green-700">Budget Buddy</span>
             </h2>
             <div className="flex flex-row justify-center items-center mb-8">
               <img src={logo} alt="" className="h-60 w-50 m-2" />
