@@ -70,8 +70,6 @@ export const GlobalProvider = ({children}) => {
         return totalIncome;
     }
 
-
-    //calculate incomes
     const addExpense = async (income) => {
         console.log(income);
         const response = await axios.post(`${BASE_URL}add-expense`, income)
@@ -96,6 +94,7 @@ export const GlobalProvider = ({children}) => {
               });
         getExpenses()
     }
+
 
     const getExpenses = async () => {
         const config = {
