@@ -14,7 +14,8 @@ import animationData from "../Components/typing.json";
 import io from "socket.io-client";
 import UpdateGroupChatModal from "../Components/UpdateGroupChatModal";
 import { ChatState } from "../Components/ChatProvider";
-const ENDPOINT = "http://localhost:5000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
+import { useCookies } from "react-cookie";
+const ENDPOINT = "http://localhost:8000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -25,6 +26,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [typing, setTyping] = useState(false);
   const [istyping, setIsTyping] = useState(false);
   const toast = useToast();
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
   const defaultOptions = {
     loop: true,
@@ -34,23 +36,24 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
-  const { selectedChat, setSelectedChat, user, notification, setNotification } =
+  const { selectedChat, setSelectedChat, notification, setNotification } =
     ChatState();
 
   const fetchMessages = async () => {
     if (!selectedChat) return;
 
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": cookies.UserId,
+              },
+          };
 
       setLoading(true);
-
+      console.log(selectedChat);
       const { data } = await axios.get(
-        `/api/message/${selectedChat._id}`,
+        `http://localhost:8000/api/message/${selectedChat._id}`,
         config
       );
       setMessages(data);
@@ -74,14 +77,14 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       socket.emit("stop typing", selectedChat._id);
       try {
         const config = {
-          headers: {
-            "Content-type": "application/json",
-            Authorization: `Bearer ${user.token}`,
-          },
-        };
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": cookies.UserId,
+              },
+          };
         setNewMessage("");
         const { data } = await axios.post(
-          "/api/message",
+          "http://localhost:8000/api/message/",
           {
             content: newMessage,
             chatId: selectedChat,
@@ -105,7 +108,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   useEffect(() => {
     socket = io(ENDPOINT);
-    socket.emit("setup", user);
+    socket.emit("setup", cookies.UserId);
     socket.on("connected", () => setSocketConnected(true));
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop typing", () => setIsTyping(false));
@@ -114,6 +117,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   }, []);
 
   useEffect(() => {
+    
     fetchMessages();
 
     selectedChatCompare = selectedChat;
@@ -167,7 +171,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             px={2}
             w="100%"
             fontFamily="Work sans"
-            d="flex"
+            display="flex"
             justifyContent={{ base: "space-between" }}
             alignItems="center"
           >
@@ -179,9 +183,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             {messages &&
               (!selectedChat.isGroupChat ? (
                 <>
-                  {getSender(user, selectedChat.users)}
+                  {getSender(cookies.UserId, selectedChat.users)}
                   <ProfileModal
-                    user={getSenderFull(user, selectedChat.users)}
+                    user={getSenderFull(cookies.UserId, selectedChat.users)}
                   />
                 </>
               ) : (
@@ -196,7 +200,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               ))}
           </Text>
           <Box
-            d="flex"
+            display="flex"
             flexDir="column"
             justifyContent="flex-end"
             p={3}

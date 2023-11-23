@@ -1,48 +1,41 @@
 import React, { useState } from "react";
 
 import {
-    Container,
-    MenuItem,
-    AppBar,
-    Toolbar,
-    Typography,
-    Select,
-  } from "@material-ui/core";
+  Container,
+  MenuItem,
+  AppBar,
+  Toolbar,
+  Typography,
+  Select,
+} from "@material-ui/core";
 
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import { useToast } from "@chakra-ui/react";
 
-const Onboarding = (props) => {
+const Onboarding = () => {
   const [name, setName] = useState();
   const [confirmpassword, setConfirmpassword] = useState();
   const [password, setPassword] = useState();
   const [pic, setPic] = useState();
-  const [maxexpense, setmaxexpense] = useState();
-  const [minexpense, setminexpense] = useState();
-  const [maxsalary, setmaxsalary] = useState();
-  const [minsalary, setminsalary] = useState();
   const [picLoading, setPicLoading] = useState(true);
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
-  const [ currency, setCurrency ] = useState("INR");
   let navigate = useNavigate();
-
+const toast = useToast();
   const submitHandler = async (e) => {
     e.preventDefault();
     if (
       !name ||
       !password ||
       !confirmpassword ||
-      !pic ||
-      !maxexpense ||
-      !minexpense ||
-      !maxsalary ||
-      !minsalary
+      !pic 
     ) {
       return;
     }
     if (password !== confirmpassword) {
       return;
     }
+
     
     navigate("/loading");
     const response = await fetch("http://localhost:8000/api/auth/createuser", {
@@ -54,37 +47,40 @@ const Onboarding = (props) => {
         name: name,
         password: password,
         pic: pic,
-        maxexpense: maxexpense,
-        minexpense: minexpense,
-        maxsalary: maxsalary,
-        minsalary: minsalary,
-        id:cookies.UserId,
-        currency:currency,
+        id: cookies.UserId,
       }),
     });
 
     const json = await response.json();
     if (json.success) {
-      props.setforlogin(); 
       setCookie("name", name);
       setCookie("pic", pic);
-      setCookie("maxexpense", maxexpense);
-      setCookie("minexpense", minexpense);
-      setCookie("maxsalary", maxsalary);
-      setCookie("minsalary", minsalary);
-      setCookie("currency", currency);
-      props.showAlert(" successfully ", "success");
-      props.setDash();
+      toast({
+        title: "Welcome",
+        description: "onboarding successfull",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-left",
+      });
+      window.location.reload();
       navigate("/");
     } else {
-      props.showAlert("unsuccesfull ", "danger");
+      toast({
+        title: "Error Occured!",
+        description: "unsuccesfull onboarding try again",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-left",
+      });
       navigate("/onboarding");
     }
   };
 
   const postDetails = (pics) => {
     setPicLoading(true);
-    console.log(cookies.UserId)
+    console.log(cookies.UserId);
     if (pics === undefined) {
       return;
     }
@@ -103,7 +99,6 @@ const Onboarding = (props) => {
           setPic(data.url.toString());
           console.log(data.url.toString());
           setPicLoading(false);
-
         })
         .catch((err) => {
           console.log(err);
@@ -111,7 +106,14 @@ const Onboarding = (props) => {
         });
     } else {
       setPicLoading(true);
-      props.showAlert("choose png image", "danger");
+      toast({
+        title: "Error Occured!",
+        description: "Please upload png image",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-left",
+      });
       return;
     }
   };
@@ -220,105 +222,6 @@ const Onboarding = (props) => {
               />
             </div>
           </div>
-          <Select
-                variant="outlined"
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={currency}
-                style={{ width: 100, height: 40, marginLeft: 15 }}
-                onChange={(e) => setCurrency(e.target.value)}
-              >
-                <MenuItem value={"USD"}>USD</MenuItem>
-                <MenuItem value={"INR"}>INR</MenuItem>
-              </Select>
-          <div>
-            <div className="flex items-center justify-between">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Maximum Salary
-              </label>
-            </div>
-            <div className="mt-2">
-              <input
-                id="maxsalary"
-                name="maxsalary"
-                type="number"
-                autoComplete="maxsalary"
-                required
-                onChange={(e) => setmaxsalary(e.target.value)}
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-
-          <div>
-            <div className="flex items-center justify-between">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Minimum Salary
-              </label>
-            </div>
-            <div className="mt-2">
-              <input
-                id="minsalary"
-                name="minsalary"
-                type="number"
-                autoComplete="minsalary"
-                required
-                onChange={(e) => setminsalary(e.target.value)}
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-
-          <div>
-            <div className="flex items-center justify-between">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Maximum Expenses
-              </label>
-            </div>
-            <div className="mt-2">
-              <input
-                id="maxexpense"
-                name="maxexpense"
-                type="number"
-                autoComplete="maxexpense"
-                required
-                onChange={(e) => setmaxexpense(e.target.value)}
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-
-          <div>
-            <div className="flex items-center justify-between">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Minimum Expenses
-              </label>
-            </div>
-            <div className="mt-2">
-              <input
-                id="minexpense"
-                name="minexpense"
-                type="number"
-                autoComplete="minexpense"
-                required
-                onChange={(e) => setminexpense(e.target.value)}
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-
           <div>
             <button
               type="submit"

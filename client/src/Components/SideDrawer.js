@@ -30,6 +30,8 @@ import { getSender } from "../Components/ChatLogics";
 import UserListItem from "../Components/UserListItem";
 import { ChatState } from "../Components/ChatProvider";
 import { useCookies } from "react-cookie";
+import ProfileModal from "./ProfileModal";
+import { useNavigate } from "react-router-dom";
 
 function SideDrawer() {
   const [search, setSearch] = useState("");
@@ -38,17 +40,35 @@ function SideDrawer() {
   const [loadingChat, setLoadingChat] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
-  const {
-    setSelectedChat,
-    user,
-    notification,
-    setNotification,
-    chats,
-    setChats,
-  } = ChatState();
+  const { setSelectedChat, notification, setNotification, chats, setChats } =
+    ChatState();
 
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+
+    let navigate = useNavigate();
+    const deletecache = async () => {
+        
+        try {
+          removeCookie("AuthToken");
+          removeCookie("UserId");
+          removeCookie("email");
+          removeCookie("name");
+          removeCookie("pic");
+          removeCookie("maxexpense");
+          removeCookie("minexpense");
+          removeCookie("maxsalary");
+          removeCookie("minsalary");
+          removeCookie("currency");
+          navigate("/");
+          window.location.reload()
+          
+        } catch (error) {
+          console.error("Error clearing cache:", error);
+        }
+      };
+
   const handleSearch = async () => {
     if (!search) {
       toast({
@@ -66,12 +86,15 @@ function SideDrawer() {
 
       const config = {
         headers: {
-            "Content-Type": "application/json",
-            "auth-token": cookies.UserId,
-          },
+          "Content-Type": "application/json",
+          "auth-token": cookies.UserId,
+        },
       };
 
-      const { data } = await axios.get(`http://localhost:8000/api/auth/suser?search=${search}`, config);
+      const { data } = await axios.get(
+        `http://localhost:8000/api/auth/suser?search=${search}`,
+        config
+      );
 
       setLoading(false);
       setSearchResult(data);
@@ -94,12 +117,16 @@ function SideDrawer() {
       setLoadingChat(true);
       const config = {
         headers: {
-            "Content-Type": "application/json",
-            "auth-token": cookies.UserId,
-          },
+          "Content-Type": "application/json",
+          "auth-token": cookies.UserId,
+        },
       };
-      const { data } = await axios.post(`/api/chat`, { userId }, config);
-
+      const { data } = await axios.post(
+        `http://localhost:8000/api/chat`,
+        { userId },
+        config
+      );
+      console.log(data);
       if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
       setSelectedChat(data);
       setLoadingChat(false);
@@ -119,7 +146,7 @@ function SideDrawer() {
   return (
     <>
       <Box
-        display='flex'
+        display="flex"
         justifyContent="space-between"
         alignItems="center"
         bg="white"
@@ -130,15 +157,17 @@ function SideDrawer() {
           <Button variant="ghost" onClick={onOpen}>
             <i className="fas fa-search"></i>
             <Text d={{ base: "none", md: "flex" }} px={4}>
-              Search User
+                <div className="hidden lg:block">
+              Search User</div>
             </Text>
           </Button>
         </Tooltip>
         <Text fontSize="2xl" fontFamily="Work sans">
-          Budget Buddy
+            <div className="hidden lg:block">Budget Buddy</div>
+          
         </Text>
         <div>
-          {/* <Menu>
+          <Menu>
             <MenuButton p={1}>
               <NotificationBadge
                 count={notification.length}
@@ -158,11 +187,31 @@ function SideDrawer() {
                 >
                   {notif.chat.isGroupChat
                     ? `New Message in ${notif.chat.chatName}`
-                    : `New Message from ${getSender(user, notif.chat.users)}`}
+                    : `New Message from ${getSender(
+                        cookies.UserId,
+                        notif.chat.users
+                      )}`}
                 </MenuItem>
               ))}
             </MenuList>
-          </Menu> */}
+          </Menu>
+          <Menu>
+            <MenuButton as={Button} bg="white" rightIcon={<ChevronDownIcon />}>
+              <Avatar
+                size="sm"
+                cursor="pointer"
+                name={cookies.name}
+                src={cookies.pic}
+              />
+            </MenuButton>
+            <MenuList>
+              <ProfileModal user={cookies}>
+                <MenuItem>My Profile</MenuItem>{" "}
+              </ProfileModal>
+              <MenuDivider />
+              <MenuItem onClick={deletecache}>Logout</MenuItem> 
+            </MenuList>
+          </Menu>
         </div>
       </Box>
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
@@ -184,6 +233,7 @@ function SideDrawer() {
             ) : (
               searchResult?.map((user) => (
                 <UserListItem
+                  key={user._id}
                   user={user}
                   handleFunction={() => accessChat(user._id)}
                 />
