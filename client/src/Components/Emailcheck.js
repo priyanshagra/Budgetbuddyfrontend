@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import logo from "./budgetbuddysignin.jpeg";
 
 const Emailcheck = (props) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -52,17 +53,29 @@ const Emailcheck = (props) => {
   };
 
   return (
-    <div className="">
-      <div className="rounded-l-3xl float-right flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 h-screen flex items-center justify-center bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 text-white text-white text-4xl font-bold animate-pulse">
-            Sign in to your account
-          </h2>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
+      <div className="sm:mx-auto sm:w-full sm:max-w-sm bg-pink-100 h-screen rounded-full m-5 p-8 shadow-lg">
+        <h2 className="text-center text-4xl font-bold text-white mt-6 mb-6">
+        <span className="text-pink-500">Budget Buddy</span>
+        </h2>
+        <h2 className="text-center text-4xl font-bold text-white mb-6">
+          Sign in
+        </h2>
+
+        <div className="flex flex-row justify-center items-center">
+          <div className="rounded-lg p-2 bg-pink-100 hover:bg-black transition">
+            <img src={logo} alt="" className="h-20 w-20" />
+          </div>
+
         </div>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <div className="rounded-lg p-2 bg-pink-100 hover:bg-pink-200 transition">
+          {/* <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 text-white text-white text-4xl font-bold animate-pulse">
+            Sign in to your account
+          </h2> */}
+
           <form
-            className="space-y-6"
+            className="mt-6 space-y-6"
             action="#"
             method="POST"
             onSubmit={handleSubmit}
