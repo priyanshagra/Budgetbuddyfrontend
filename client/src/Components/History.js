@@ -47,6 +47,10 @@ const HistoryStyled = styled.div`
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        &:hover {
+            background: #f0e2e5; /* Change the background color on hover */
+          }
     }
 `;
 

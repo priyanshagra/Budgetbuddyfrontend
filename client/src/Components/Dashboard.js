@@ -26,24 +26,9 @@ const Dashboard = (props) => {
     getIncomes();
     getExpenses();
   }, []);
-  const apiKey = "3b31ded8bd58e51ae49d584cc911c0fc";
   const { currency, symbol } = CryptoState();
   const [exchangeRate, setexchangeRate] = useState(1);
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `https://open.er-api.com/v6/latest/${cookies.currency}?apikey=${apiKey}`
-        );
-        setexchangeRate(response.data.rates[currency].toFixed(2));
-      } catch (error) {
-        console.error("Error fetching exchange rates:", error);
-      }
-    };
-
-    fetchData(); // Call the async function immediately
-  }, [cookies.currency, currency, apiKey]);
   const profileImageURL = cookies.pic;
   console.log(profileImageURL);
   const navigate = useNavigate();

@@ -22,6 +22,7 @@ import { ChatState } from "../Components/ChatProvider";
 import UserBadgeItem from "../Components/UserBadgeItem";
 import UserListItem from "../Components/UserListItem";
 import { useCookies } from "react-cookie";
+import { CryptoState } from "./CryptoContext";
 
 const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -35,6 +36,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
   const [renameloading, setRenameLoading] = useState(false);
   const toast = useToast();
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  const { currency, symbol } = CryptoState();
   
 
   const { selectedChat, setSelectedChat } = ChatState();
@@ -418,6 +420,12 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
               </Button>
             </FormControl>
             <FormControl display="flex">
+            <Button
+                variant="solid"
+                mr={1}
+              >
+                {symbol}
+              </Button>
               <Input
                 placeholder="Money Paid for Group"
                 mb={3}

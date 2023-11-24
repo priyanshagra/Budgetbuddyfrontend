@@ -120,6 +120,9 @@ function IncomeItem({
 }
 
 const IncomeItemStyled = styled.div`
+&:hover {
+    background: #f0e2e5; /* Change the background color on hover */
+  }
   background: #fcf6f9;
   border: 2px solid #ffffff;
   box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
@@ -143,9 +146,15 @@ const IncomeItemStyled = styled.div`
     i {
       font-size: 2.6rem;
     }
+    &:hover {
+        background: #f0e2e5; /* Change the background color on hover */
+      }
   }
 
   .content {
+    &:hover {
+        background: #f0e2e5; /* Change the background color on hover */
+      }
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -184,6 +193,9 @@ const IncomeItemStyled = styled.div`
         }
       }
     }
+    &:hover {
+        background: #f0e2e5; /* Change the background color on hover */
+      }
   }
 
   @media screen and (max-width: 768px) {

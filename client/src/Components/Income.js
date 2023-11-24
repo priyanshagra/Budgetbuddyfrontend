@@ -46,10 +46,14 @@ function Income() {
 }
 
 const IncomeStyled = styled.div`
+
   display: flex;
   flex-direction: column;
 
   .total-income {
+    &:hover {
+        background: #f0e2e5; /* Change the background color on hover */
+      }
     display: flex;
     justify-content: center;
     align-items: center;

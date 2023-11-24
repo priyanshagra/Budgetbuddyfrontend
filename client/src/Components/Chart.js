@@ -71,6 +71,9 @@ const ChartStyled = styled.div`
   padding: 1rem;
   border-radius: 20px;
   height: 100%;
+  &:hover {
+    background: #f0e2e5; /* Change the background color on hover */
+  }
 `;
 
 export default Chart;

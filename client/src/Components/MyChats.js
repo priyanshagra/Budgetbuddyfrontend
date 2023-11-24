@@ -9,10 +9,12 @@ import GroupChatModal from "../Components/GroupChatModal";
 import { Button } from "@chakra-ui/react";
 import { ChatState } from "../Components/ChatProvider";
 import { useCookies } from "react-cookie";
+import { TextField } from "@material-ui/core";
 
 const MyChats = ({ fetchAgain }) => {
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   const { selectedChat, setSelectedChat, chats, setChats } = ChatState();
+  const [search, setSearch] = useState("");
 
   const toast = useToast();
 
@@ -43,9 +45,18 @@ const MyChats = ({ fetchAgain }) => {
     }
   };
 
+  const handleSearch = () => {
+    return chats.filter((chat) =>
+      !chat?.isGroupChat
+        ? getSender(cookies.UserId, chat.users)
+        : chat?.chatName.toLowerCase().includes(search)
+    );
+  };
+
   useEffect(() => {
     console.log(selectedChat);
     fetchChats();
+
     // eslint-disable-next-line
   }, [fetchAgain]);
 
@@ -59,6 +70,7 @@ const MyChats = ({ fetchAgain }) => {
       w={{ base: "100%", md: "31%" }}
       borderRadius="lg"
       borderWidth="1px"
+      overflowY="hidden"
     >
       <Box
         pb={3}
@@ -70,61 +82,65 @@ const MyChats = ({ fetchAgain }) => {
         justifyContent="space-between"
         alignItems="center"
       >
-        <Box>My Chats</Box>
-
+        My Chats
         <GroupChatModal>
           <Button
-            diplay="flex"
+            display="flex"
             fontSize={{ base: "17px", md: "10px", lg: "17px" }}
             rightIcon={<AddIcon />}
           >
             New Group Chat
           </Button>
         </GroupChatModal>
-      
-      <Box
-        diplay="flex"
-        flexDir="column"
-        p={3}
-        bg="#F8F8F8"
-        w="100%"
-        h="100%"
-        borderRadius="lg"
-        overflowY="hidden"
-      >
-        {chats ? (
-          <Stack overflowY="scroll">
-            {chats?.map((chat) => (
-              <Box
-                onClick={() => setSelectedChat(chat)}
-                cursor="pointer"
-                bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
-                color={selectedChat === chat ? "white" : "black"}
-                px={3}
-                py={2}
-                borderRadius="lg"
-                key={chat?._id}
-              >
-                <Text>
-                  {!chat?.isGroupChat
-                    ? getSender(cookies.UserId, chat.users)
-                    : chat?.chatName}
-                </Text>
-                {chat?.latestMessage && (
-                  <Text fontSize="xs">
-                    <b>{chat?.latestMessage.sender?.name} : </b>
-                    {chat?.latestMessage.content.length > 50
-                      ? chat.latestMessage.content.substring(0, 51) + "..."
-                      : chat.latestMessage.content}
+        <TextField
+          label="Search for chats"
+          variant="outlined"
+          style={{ marginBottom: 20, width: "100%" }}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <Box
+          display="flex"
+          flexDir="column"
+          p={3}
+          bg="#F8F8F8"
+          w="100%"
+          h="100%"
+          borderRadius="lg"
+          overflowY="hidden"
+        >
+          {chats ? (
+            <Stack overflowY="scroll" maxHeight="400px">
+              {handleSearch().map((chat) => (
+                <Box
+                  onClick={() => setSelectedChat(chat)}
+                  cursor="pointer"
+                  bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
+                  color={selectedChat === chat ? "white" : "black"}
+                  px={3}
+                  py={2}
+                  borderRadius="lg"
+                  key={chat?._id}
+                >
+                  <Text>
+                    {!chat?.isGroupChat
+                      ? getSender(cookies.UserId, chat.users)
+                      : chat?.chatName}
                   </Text>
-                )}
-              </Box>
-            ))}
-          </Stack>
-        ) : (
-          <ChatLoading />
-        )}
-      </Box>
+                  {chat?.latestMessage && (
+                    <Text fontSize="xs">
+                      <b>{chat?.latestMessage.sender?.name} : </b>
+                      {chat?.latestMessage.content.length > 50
+                        ? chat.latestMessage.content.substring(0, 51) + "..."
+                        : chat.latestMessage.content}
+                    </Text>
+                  )}
+                </Box>
+              ))}
+            </Stack>
+          ) : (
+            <ChatLoading />
+          )}
+        </Box>
       </Box>
     </Box>
   );
