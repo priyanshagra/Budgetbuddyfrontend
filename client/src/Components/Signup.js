@@ -103,9 +103,10 @@ const Signup = () => {
       <button className=" m-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
         <Link to="/authemail">Signup</Link>
       </button>
-      <GoogleLogin
+      <div className="bg-gray-900">
+            <GoogleLogin
       
-      className="bg-grey-900"
+      
               clientId="504611249331-3l8vq2l7k662aof3rllqu4ldeo9cr535.apps.googleusercontent.com"
               buttonText="Sign in with Google"
               onSuccess={responseGoogle}
@@ -113,6 +114,7 @@ const Signup = () => {
               cookiePolicy={"single_host_origin"}
               
             />
+            </div>
     </div>
     </div>
     </div>
