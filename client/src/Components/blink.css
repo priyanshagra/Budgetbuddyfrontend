@@ -1,0 +1,22 @@
+/* BlinkerTagline.css */
+/* BlinkerTagline.css */
+.blinker-container {
+    text-align: center;
+  }
+  
+  .blinker-tagline {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: red; /* Set your desired text color */
+    animation: blinker 5s infinite;
+  }
+  
+  @keyframes blinker {
+    0%, 50%, 100% {
+      opacity: 1;
+    }
+    25%, 75% {
+      opacity: 0;
+    }
+  }
+  
