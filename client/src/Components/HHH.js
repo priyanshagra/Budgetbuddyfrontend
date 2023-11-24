@@ -4,19 +4,19 @@ import React, { useState, useEffect } from 'react';
 const StickyHeader = () => {
   const [isSticky, setIsSticky] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const offset = window.scrollY;
-      setIsSticky(offset > 100); // Adjust the scroll threshold as needed
-    };
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const offset = window.scrollY;
+  //     setIsSticky(offset > 100); // Adjust the scroll threshold as needed
+  //   };
 
-    window.addEventListener('scroll', handleScroll);
+  //   window.addEventListener('scroll', handleScroll);
 
-    // Cleanup on component unmount
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  //   // Cleanup on component unmount
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll);
+  //   };
+  // }, []);
 
   return (
     <header

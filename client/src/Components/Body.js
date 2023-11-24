@@ -4,6 +4,7 @@ import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
 import { useSpring, animated } from 'react-spring';
 import YourComponent from "./YourComponent"
 import "./blink.css"
+import Animation from "./Animation"
 const HomePage = () => {
   const fadeIn = useSpring({
     opacity: 1,
@@ -12,37 +13,69 @@ const HomePage = () => {
   });
 
   return (
-    <div className="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-center">
-  <div className="text-center mb-8">
+    <>
+    
+    
+    <div className="m-10 text-white  flex flex-col items-center justify-center">
+  {
+
+  /* <div className="text-center mb-8">
     <animated.div style={fadeIn}>
       <div className="blinker-container">
         <h1 className="text-4xl font-bold mb-4 blinker-tagline">Welcome to Income Tracker</h1>
       </div>
-      <p className="text-lg">Track your income and expenses with ease.</p>
+      <p className="text-lg"><h1>Track your income and expenses with ease</h1>.</p>
     </animated.div>
   </div>
+  <div className=" bg-white flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mb-8">
+  Simple way
+to manage personal finances
+  </div> */}
+  
 
-  <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mb-8">
+  <div className="  ajjeb flex  flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mb-8">
+    <div>
     <img
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDoLAboLp5MUHq3YL8-Jf-I-Z3fmtaO83rGw&usqp=CAU"
+      src="https://moneylover.me/img/introfeature/1.svg"
       alt="Income Tracker"
-      className="w-full md:w-80 h-60 rounded-lg shadow-lg cursor-pointer transform transition-transform group-hover:scale-105 hover:text-blue-500 hover:translate-y-2 hover:transition-transform duration-300 ease-in-out"
+      className=" bg-gray-100  w-full md:w-80 h-60 rounded-lg shadow-lg cursor-pointer transform transition-transform group-hover:scale-105 hover:text-blue-500 hover:translate-y-2 hover:transition-transform duration-300 ease-in-out"
+      
     />
+    <h1 className="ml-20  text-3xl font-bold text-yellow-400 "> 100% Secure</h1>
+    </div>
+    
+    <div>
     <img
-      src="https://visme.co/blog/wp-content/uploads/2021/08/Data-Visualization-thumbnail.jpg"
+      src="https://moneylover.me/img/introfeature/2.svg"
       alt="Income Tracker"
-      className="w-full md:w-80 h-60 rounded-lg shadow-lg cursor-pointer transform transition-transform group-hover:scale-105 hover:text-blue-500 hover:translate-y-2 hover:transition-transform duration-300 ease-in-out"
+      className=" bg-gray-100  w-full md:w-80 h-60 rounded-lg shadow-lg cursor-pointer transform transition-transform group-hover:scale-105 hover:text-blue-500 hover:translate-y-2 hover:transition-transform duration-300 ease-in-out"
     />
+    <h1 className="ml-20  text-3xl font-bold text-yellow-400 ">1 Million+ users</h1>
+    </div>
+    <div>
     <img
-      src="https://data.org/wp-content/uploads/2022/01/Data-Visualization-Guide.png"
+      src="https://moneylover.me/img/introfeature/3.svg"
       alt="Income Tracker"
-      className="w-full md:w-80 h-60 rounded-lg shadow-lg cursor-pointer transform transition-transform group-hover:scale-105 hover:text-blue-500 hover:translate-y-2 hover:transition-transform duration-300 ease-in-out"
+      className=" bg-gray-100  w-full md:w-80 h-60 rounded-lg shadow-lg cursor-pointer transform transition-transform group-hover:scale-105 hover:text-blue-500 hover:translate-y-2 hover:transition-transform duration-300 ease-in-out"
     />
+    <h1 className="ml-19  text-3xl font-bold text-yellow-400 ">100K+ 5-star Reviews</h1>
+    </div>
+    <div>
+    <img
+      src="https://moneylover.me/img/introfeature/4.svg"
+      alt="Income Tracker"
+      className=" bg-gray-100  w-full md:w-80 h-60 rounded-lg shadow-lg cursor-pointer transform transition-transform group-hover:scale-105 hover:text-blue-500 hover:translate-y-2 hover:transition-transform duration-300 ease-in-out"
+    />
+    <h1 className="ml-20  text-3xl font-bold text-yellow-400 ">App of the Day</h1>
+    </div>
   </div>
 
 
-      <YourComponent></YourComponent>
+      
       </div>
+      
+      <YourComponent></YourComponent>
+      </>
 
       
 

@@ -1,3 +1,4 @@
-.ss{
-  background-color: rgb(255, 251, 0)(0, 255, 51);
+.ssttt{
+  background: linear-gradient(yellow,green);
+  box-sizing: border-box;
 }
