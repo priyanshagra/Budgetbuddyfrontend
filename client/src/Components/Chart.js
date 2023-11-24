@@ -12,6 +12,8 @@ function Chart() {
   const { isSwitchOn, setIsSwitchOn } = CryptoState();
   const { incomes, expenses } = useGlobalContext();
 
+  const { currency,symbol,exchangeRatei,exchangeRateu } = CryptoState();
+
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false, // Add this to make the chart responsive
@@ -22,7 +24,7 @@ function Chart() {
     datasets: [
       {
         label: 'Income',
-        data: incomes.map((income) => income.amount),
+        data: incomes.map((income) => (income.currency=="INR"?income.amount*exchangeRatei:income.amount*exchangeRateu).toFixed(2)),
         backgroundColor: 'green',
         tension: 0.2,
       },
@@ -34,7 +36,7 @@ function Chart() {
     datasets: [
       {
         label: 'Expenses',
-        data: expenses.map((expense) => expense.amount),
+        data: expenses.map((expense) =>  (expense.currency=="INR"?expense.amount*exchangeRatei:expense.amount*exchangeRateu).toFixed(2)),
         backgroundColor: 'red',
         tension: 0.2,
       },

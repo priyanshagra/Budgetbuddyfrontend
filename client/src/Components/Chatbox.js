@@ -2,8 +2,11 @@ import { Box } from "@chakra-ui/layout";
 import "../Components/styles.css";
 import SingleChat from "../Components/SingleChat";
 import { ChatState } from "../Components/ChatProvider";
+import { CryptoState } from "./CryptoContext";
 
 const Chatbox = ({ fetchAgain, setFetchAgain }) => {
+  const { isSwitchOn, setIsSwitchOn } = CryptoState();
+
   const { selectedChat } = ChatState();
 
   return (
@@ -12,10 +15,10 @@ const Chatbox = ({ fetchAgain, setFetchAgain }) => {
       alignItems="center"
       flexDir="column"
       p={3}
-      bg="white"
       w={{ base: "100%", md: "68%" }}
       borderRadius="lg"
       borderWidth="1px"
+      className={`${isSwitchOn?"text-gray-800":"text-white"}`}
     >
       <SingleChat fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
     </Box>

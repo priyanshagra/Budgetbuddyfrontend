@@ -26,8 +26,9 @@ const Dashboard = (props) => {
     getIncomes();
     getExpenses();
   }, []);
+  const { currency,symbol,exchangeRatei,exchangeRateu } = CryptoState();
   const { isSwitchOn, setIsSwitchOn } = CryptoState();
-  const { currency, symbol } = CryptoState();
+
   const [exchangeRate, setexchangeRate] = useState(1);
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   const profileImageURL = cookies.pic;
@@ -43,21 +44,21 @@ const Dashboard = (props) => {
       <div className={`text-center rounded-lg ${isSwitchOn?"bg-gray-200 hover:bg-gray-300 text-gray-800":"text-white bg-gray-700 hover:bg-gray-800"} p-2 transition`}>
         <h2 className="text-xl font-bold">Total Balance</h2>
         <p className="text-2xl">
-          {dollar} {totalBalance()}
+          {symbol} {totalBalance()}
         </p>
       </div>
       <div className="flex flex-row justify-center  items-center">
         <div className={`text-center m-6 rounded-lg  p-2 ${isSwitchOn?"bg-gray-200 hover:bg-gray-300 text-gray-800":"text-white bg-gray-700 hover:bg-gray-800"} p-2 transition`}>
           <h2 className="text-xl font-bold">Total Income</h2>
           <p className="text-2xl">
-            {dollar} {totalIncome()}
+            {symbol} {totalIncome()}
           </p>
         </div>
 
         <div className={`text-center m-6 rounded-lg  p-2 ${isSwitchOn?"bg-gray-200 hover:bg-gray-300 text-gray-800":"text-white bg-gray-700 hover:bg-gray-800"} transition`}>
           <h2 className="text-xl font-bold">Total Expense</h2>
           <p className="text-2xl">
-            {dollar} {totalExpenses()}
+            {symbol} {totalExpenses()}
           </p>
         </div>
       </div>
@@ -74,17 +75,18 @@ const Dashboard = (props) => {
               <h2 className={`${isSwitchOn?"text-gray-800":"text-white"} salary-title`}>
                 Min <span>Salary</span>Max
               </h2>
-              <div className={`${isSwitchOn?"bg-gray-300 hover:bg-gray-400 text-gray-800":"text-white bg-gray-700 hover:bg-gray-800"} salary-item`}>
-                <p>${Math.min(...incomes.map((item) => item.amount))}</p>
-                <p>${Math.max(...incomes.map((item) => item.amount))}</p>
-              </div>
-              <h2 className={`${isSwitchOn?"text-gray-800":"text-white"} salary-title`}>
+             { incomes.length>0&&<div className="salary-item">
+              
+                <p>{symbol} {Math.min(...incomes.map((item) => (item.currency=="INR"?item.amount*exchangeRatei:item.amount*exchangeRateu))).toFixed(2)}</p>
+                <p>{symbol} {Math.max(...incomes.map((item) => (item.currency=="INR"?item.amount*exchangeRatei:item.amount*exchangeRateu))).toFixed(2)}</p>
+              </div>}
+             {expenses.length>0 && <h2 className="salary-title">
                 Min <span>Expense</span>Max
-              </h2>
-              <div className={`${isSwitchOn?"bg-gray-300 hover:bg-gray-400 text-gray-800":"text-white bg-gray-700 hover:bg-gray-800"} salary-title`}>
-                <p>${Math.min(...expenses.map((item) => item.amount))}</p>
-                <p>${Math.max(...expenses.map((item) => item.amount))}</p>
-              </div>
+              </h2>}
+             {expenses.length>0 &&<div className="salary-item">
+              <p>{symbol} {Math.min(...expenses.map((item) => (item.currency=="INR"?item.amount*exchangeRatei:item.amount*exchangeRateu))).toFixed(2)}</p>
+                <p>{symbol} {Math.max(...expenses.map((item) => (item.currency=="INR"?item.amount*exchangeRatei:item.amount*exchangeRateu))).toFixed(2)}</p>
+              </div>}
             </div>
           </div>
         </InnerLayout>

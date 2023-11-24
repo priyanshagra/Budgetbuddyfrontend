@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useToast } from '@chakra-ui/react';
+import { CryptoState } from './CryptoContext';
 
 const BASE_URL="http://localhost:8000/api/transaction/";
 
@@ -17,6 +18,8 @@ export const GlobalProvider = ({children}) => {
     const [expenses, setExpenses] = useState([])
     const [error, setError] = useState(null)
     const toast = useToast();
+
+    const { currency,symbol,exchangeRatei,exchangeRateu } = CryptoState();
 
     //calculate incomes
     const addIncome = async (income) => {
@@ -64,10 +67,10 @@ export const GlobalProvider = ({children}) => {
     const totalIncome = () => {
         let totalIncome = 0;
         incomes.forEach((income) =>{
-            totalIncome = totalIncome + income.amount
+            totalIncome = totalIncome + (income.currency=="INR"?income.amount*exchangeRatei:income.amount*exchangeRateu)
         })
 
-        return totalIncome;
+        return totalIncome.toFixed(2);
     }
 
     const addExpense = async (income) => {
@@ -117,10 +120,10 @@ export const GlobalProvider = ({children}) => {
     const totalExpenses = () => {
         let totalIncome = 0;
         expenses.forEach((income) =>{
-            totalIncome = totalIncome + income.amount
+            totalIncome = (totalIncome + (income.currency=="INR"?income.amount*exchangeRatei:income.amount*exchangeRateu));
         })
 
-        return totalIncome;
+        return totalIncome.toFixed(2);
     }
 
 

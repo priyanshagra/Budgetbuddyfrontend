@@ -8,13 +8,14 @@ function History() {
 
     const {transactionHistory} = useGlobalContext()
 
+    const { currency,symbol,exchangeRatei,exchangeRateu } = CryptoState();
     const [...history] = transactionHistory()
 
     return (
         <HistoryStyled>
             <h2>Recent History</h2>
             {history.map((item) =>{
-                const {_id, title, amount, type} = item
+                const {_id, title, amount, type,currency} = item
                 return (
                     <div key={_id} className={`history-item ${isSwitchOn?"bg-gray-300 hover:bg-gray-400 text-gray-800":"text-white bg-gray-700 hover:bg-gray-800"}`}>
                         <p style={{
@@ -27,7 +28,7 @@ function History() {
                             color: type === 'expense' ? 'red' : 'green'
                         }}>
                             {
-                                type === 'expense' ? `-${amount <= 0 ? 0 : amount}` : `+${amount <= 0 ? 0: amount}`
+                                type === 'expense' ? `-${symbol} ${ (currency=="INR"?amount*exchangeRatei:amount*exchangeRateu).toFixed(2)}` : `+${symbol} ${ (currency=="INR"?amount*exchangeRatei:amount*exchangeRateu).toFixed(2)}`
                             }
                         </p>
                     </div>

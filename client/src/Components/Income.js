@@ -12,6 +12,8 @@ function Income() {
   const { addIncome, incomes, getIncomes, deleteIncome, totalIncome } =
     useGlobalContext();
 
+    const { currency, symbol } = CryptoState();
+
   useEffect(() => {
     getIncomes();
   }, []);

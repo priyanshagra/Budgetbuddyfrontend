@@ -12,6 +12,7 @@ function Expenses() {
 
     const {addIncome,expenses, getExpenses, deleteExpense, totalExpenses} = useGlobalContext()
 
+    const { currency, symbol } = CryptoState();
     useEffect(() =>{
         getExpenses()
     }, [])

@@ -84,6 +84,10 @@ function IncomeItem({
     }
   };
   const { symbol,exchangeRatei,exchangeRateu } = CryptoState();
+
+
+
+  
   return (
     <IncomeItemStyled className={`${isSwitchOn?"bg-gray-200 hover:bg-gray-300 text-gray-800":"text-white bg-gray-700 hover:bg-gray-800"}`} indicator={indicatorColor}>
       <div className={`${isSwitchOn?"bg-gray-200 hover:bg-gray-300 text-gray-800":"text-white bg-gray-700 hover:bg-gray-800"} icon`}>

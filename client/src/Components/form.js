@@ -1,25 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import "react-datepicker/dist/react-datepicker.css";
 import { useGlobalContext } from "./globalcontext";
 import Button from "./Button";
 import { plus } from "./Icons";
 import { useCookies } from "react-cookie";
-import { FormControl, Input } from "@chakra-ui/react";
+import { FormControl, Input, useToast } from "@chakra-ui/react";
 import { CryptoState } from "./CryptoContext";
+import axios from "axios";
 
 function Form() {
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
-  const { addIncome, getIncomes, error, setError } = useGlobalContext();
+  const { getIncomes, error, setError } = useGlobalContext();
   const { currency, symbol } = CryptoState();
+  const toast = useToast();
   const [inputState, setInputState] = useState({
     title: "",
     amount: "",
     date: "",
     category: "",
     description: "",
-    maker: cookies.UserId,
-    currency:currency
   });
   const { isSwitchOn, setIsSwitchOn } = CryptoState();
 
@@ -30,17 +30,62 @@ function Form() {
     setError("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    addIncome(inputState);
+    if (amount <= 0) {
+      toast({
+        title: "Please fill corectly",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "top",
+      });
+      return;
+    }
+
+    try {
+      const config = {
+        headers: {
+          "auth-token": cookies.UserId,
+        },
+      };
+      const { data1 } = await axios.post(
+        `http://localhost:8000/api/transaction/add-income`,
+        {
+          amount: amount,
+          maker: cookies.UserId,
+          title: title,
+          date: date,
+          category: category,
+          description: description,
+          currency: currency,
+        },
+        config
+      );
+      toast({
+        title: "Amount is added",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      getIncomes();
+    } catch (error) {
+      toast({
+        title: "Failed to add chats",
+        description: error.response.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+    }
     setInputState({
       title: "",
       amount: "",
       date: "",
       category: "",
       description: "",
-      maker: cookies.Userid,
-      currency:currency
     });
   };
 
@@ -53,6 +98,7 @@ function Form() {
         <input
           type="text"
           value={title}
+          required
           name={"title"}
           placeholder="Salary Title"
           onChange={handleInput("title")}
@@ -65,6 +111,7 @@ function Form() {
         <input
           value={amount}
           type="text"
+          required
           name={"amount"}
           placeholder={"Enter Salary Amount"}
           onChange={handleInput("amount")}
@@ -77,7 +124,7 @@ function Form() {
           type="date"
           id="dob"
           name="dob"
-          required={true}
+          required
           onChange={handleInput("date")}
           className={`block ${isSwitchOn?"text-gray-900":"text-white"} w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}
         />
@@ -113,6 +160,7 @@ function Form() {
           id="description"
           cols="30"
           rows="4"
+          required
           onChange={handleInput("description")}
           className={`${isSwitchOn?"text-gray-900":"text-white"}`}
 

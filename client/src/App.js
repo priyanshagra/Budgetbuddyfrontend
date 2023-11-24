@@ -27,6 +27,7 @@ import Footer from "./Components/Footer.js";
 const App = () => {
   const { incomes, expenses } = useGlobalContext();
   const { isSwitchOn, setIsSwitchOn } = CryptoState();
+  const { currency,symbol,exchangeRatei,exchangeRateu } = CryptoState();
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   console.log(global);
   const toast = useToast();
@@ -50,7 +51,7 @@ const App = () => {
         console.log(currentDate);
         console.log(expenseDate);
         if (expenseDate >= currentDate) {
-          const description = `Due transaction of ${exp.amount}`;
+          const description = `Due transaction of ${symbol} ${(exp.currency=="INR"?exp.amount*exchangeRatei:exp.amount*exchangeRateu).toFixed(2)}`;
           console.log("heelo");
           toast({
             title: "Money Pending",
