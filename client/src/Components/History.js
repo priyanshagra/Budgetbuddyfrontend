@@ -1,17 +1,19 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useGlobalContext } from './globalcontext';
+import { CryptoState } from './CryptoContext';
 
 function History() {
     const {transactionHistory} = useGlobalContext()
 
+    const { currency,symbol,exchangeRatei,exchangeRateu } = CryptoState();
     const [...history] = transactionHistory()
 
     return (
         <HistoryStyled>
             <h2>Recent History</h2>
             {history.map((item) =>{
-                const {_id, title, amount, type} = item
+                const {_id, title, amount, type,currency} = item
                 return (
                     <div key={_id} className="history-item">
                         <p style={{
@@ -24,7 +26,7 @@ function History() {
                             color: type === 'expense' ? 'red' : 'green'
                         }}>
                             {
-                                type === 'expense' ? `-${amount <= 0 ? 0 : amount}` : `+${amount <= 0 ? 0: amount}`
+                                type === 'expense' ? `-${symbol} ${ (currency=="INR"?amount*exchangeRatei:amount*exchangeRateu).toFixed(2)}` : `+${symbol} ${ (currency=="INR"?amount*exchangeRatei:amount*exchangeRateu).toFixed(2)}`
                             }
                         </p>
                     </div>

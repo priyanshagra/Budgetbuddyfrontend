@@ -1,13 +1,16 @@
 import React from 'react';
 import jsPDF from 'jspdf';
+import { CryptoState } from './CryptoContext';
 
 const DownloadPDFButton = ({ jsonData }) => {
+
+    const { currency,symbol,exchangeRatei,exchangeRateu } = CryptoState();
   const handleDownload = () => {
     const pdf = new jsPDF();
     pdf.text(10, 10, 'Expenses till Now');
     for( let i=0;i<jsonData.length;i++)
     {
-        pdf.text(10, 20+i*10, `${i+1}. ${jsonData[i].title} - ${jsonData[i].amount}`);
+        pdf.text(10, 20+i*10, `${i+1}. ${jsonData[i].title} - ${currency} ${(jsonData[i].currency=="INR"?jsonData[i].amount*exchangeRatei:jsonData[i].amount*exchangeRateu).toFixed(2)}`);
     }
     // Add your content here
     

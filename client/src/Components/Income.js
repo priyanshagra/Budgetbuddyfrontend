@@ -4,10 +4,13 @@ import { useGlobalContext } from "./globalcontext";
 import { InnerLayout } from "./Layouts";
 import Form from "./form";
 import IncomeItem from "./incomeItem";
+import { CryptoState } from "./CryptoContext";
 
 function Income() {
   const { addIncome, incomes, getIncomes, deleteIncome, totalIncome } =
     useGlobalContext();
+
+    const { currency, symbol } = CryptoState();
 
   useEffect(() => {
     getIncomes();
@@ -17,7 +20,7 @@ function Income() {
     <IncomeStyled>
       <InnerLayout>
         <h2 className="total-income">
-          Total Income: <span>${totalIncome()}</span>
+          Total Income: <span>{symbol} {totalIncome()}</span>
         </h2>
         <div className="income-content">
           <div className="form-container">

@@ -5,11 +5,14 @@ import Button from "./Button";
 import { plus } from "./Icons";
 import { useCookies } from "react-cookie";
 import { CryptoState } from "./CryptoContext";
+import axios from "axios";
+import { useToast } from "@chakra-ui/toast";
 
 function ExpenseForm() {
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
-  const { addExpense, error, setError } = useGlobalContext();
+  const { getExpenses, error, setError } = useGlobalContext();
   const { currency, symbol } = CryptoState();
+  const toast = useToast();
   const [inputState, setInputState] = useState({
     title: "",
     amount: "",
@@ -27,19 +30,65 @@ function ExpenseForm() {
     setError("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    addExpense(inputState);
+    if (amount <= 0) {
+      toast({
+        title: "Please fill corectly",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "top",
+      });
+      return;
+    }
+
+    try {
+      const config = {
+        headers: {
+          "auth-token": cookies.UserId,
+        },
+      };
+      const { data1 } = await axios.post(
+        `http://localhost:8000/api/transaction/add-expense`,
+        {
+          amount: amount,
+          maker: cookies.UserId,
+          title: title,
+          date: date,
+          category: category,
+          description: description,
+          currency: currency,
+        },
+        config
+      );
+      toast({
+        title: "Amount is added",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      getExpenses();
+    } catch (error) {
+      toast({
+        title: "Failed ",
+        description: error.response.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+    }
     setInputState({
-      title: "",
-      amount: "",
-      date: "",
-      category: "",
-      description: "",
-      maker: cookies.Userid,
-      currency:currency
-    });
-  };
+        title: "",
+        amount: "",
+        date: "",
+        category: "",
+        description: "",
+      });
+
+}
 
   return (
     <ExpenseFormStyled onSubmit={handleSubmit}>

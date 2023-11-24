@@ -83,6 +83,10 @@ function IncomeItem({
     }
   };
   const { symbol,exchangeRatei,exchangeRateu } = CryptoState();
+
+
+
+  
   return (
     <IncomeItemStyled indicator={indicatorColor}>
       <div className="icon">

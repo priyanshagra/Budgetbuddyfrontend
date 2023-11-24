@@ -5,17 +5,19 @@ import { InnerLayout } from './Layouts';
 import IncomeItem from './incomeItem';
 import ExpenseForm from './Expenseform';
 import DownloadPDFButton from './DownloadPDFButton';
+import { CryptoState } from './CryptoContext';
 
 function Expenses() {
     const {addIncome,expenses, getExpenses, deleteExpense, totalExpenses} = useGlobalContext()
 
+    const { currency, symbol } = CryptoState();
     useEffect(() =>{
         getExpenses()
     }, [])
     return (
         <ExpenseStyled>
             <InnerLayout>
-                <h2 className="total-income">Total Expense: <span>${totalExpenses()}</span></h2>
+                <h2 className="total-income">Total Expense: <span>{symbol} {totalExpenses()}</span></h2>
                 <div className="income-content">
                     <div className="form-container">
                         <ExpenseForm />
