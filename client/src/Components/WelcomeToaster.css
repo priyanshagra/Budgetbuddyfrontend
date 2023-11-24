@@ -2,7 +2,7 @@
 /* Customize styles as needed */
 .Toastify__toast {
 
-    background-color: lightgreen;
+    background-color: rgb(144, 169, 238);
     color:white;
     font-size: 20px;
   }
