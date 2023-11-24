@@ -22,6 +22,7 @@ import { ChatState } from "../Components/ChatProvider";
 import UserBadgeItem from "../Components/UserBadgeItem";
 import UserListItem from "../Components/UserListItem";
 import { useCookies } from "react-cookie";
+import { CryptoState } from "./CryptoContext";
 
 const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -35,6 +36,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
   const [renameloading, setRenameLoading] = useState(false);
   const toast = useToast();
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  const { currency, symbol,exchangeRatei,exchangeRateu } = CryptoState();
   
 
   const { selectedChat, setSelectedChat } = ChatState();
@@ -90,9 +92,10 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
       const { data1 } = await axios.post(
         `http://localhost:8000/api/request/`,
         {
-          money:( money/selectedChat.users.length),
+          money:( money/selectedChat.users.length).toFixed(2),
           chatid:selectedChat._id,
           users: selectedChat.users,
+          currency:currency
         },
         config
       );
@@ -388,7 +391,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
               {requests?.map((request) => (
                 request?.paidfor?.length>1&&
                 <Box w="100%" display="flex" flexWrap="wrap" pb={3}>
-                <p>{request.money} rupees each of</p>
+                <p>{symbol}{" "}{(request.currency=="INR"?request.money*exchangeRatei:request.money*exchangeRateu).toFixed(2)} each of</p>
                 {request.paidfor.map((u) => (
                 <UserBadgeItem
                   key={u._id}
@@ -418,6 +421,12 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
               </Button>
             </FormControl>
             <FormControl display="flex">
+            <Button
+                variant="solid"
+                mr={1}
+              >
+                {symbol}
+              </Button>
               <Input
                 placeholder="Money Paid for Group"
                 mb={3}

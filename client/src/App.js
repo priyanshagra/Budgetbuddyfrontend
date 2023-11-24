@@ -20,13 +20,16 @@ import Setting from "./Components/Setting.js";
 import Chatpage from "./Components/Chatpage";
 import SideDrawer from "./Components/SideDrawer.js";
 import { useGlobalContext } from "./Components/globalcontext.js";
-
+import { Switch, Toast, useToast } from "@chakra-ui/react";
+import { CryptoState } from "./Components/CryptoContext.js";
+import Footer from "./Components/Footer.js";
 
 const App = () => {
-
-    const { incomes, expenses } = useGlobalContext();
+  const { incomes, expenses } = useGlobalContext();
+  const { isSwitchOn, setIsSwitchOn } = CryptoState();
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   console.log(global);
+  const toast = useToast();
   const [alert, setAlert] = useState(null);
   const [login, setlogin] = useState(cookies.name ? true : false);
   const showAlert = (message, type) => {
@@ -39,12 +42,37 @@ const App = () => {
     }, 3000);
   };
 
-
   useEffect(() => {
-    
+    const alertInterval = setInterval(() => {
+      expenses.map((exp) => {
+        const currentDate = new Date();
+        const expenseDate = new Date(exp.date);
+        console.log(currentDate);
+        console.log(expenseDate);
+        if (expenseDate >= currentDate) {
+          const description = `Due transaction of ${exp.amount}`;
+          console.log("heelo");
+          toast({
+            title: "Money Pending",
+            description: description,
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom-left",
+          });
+        }
+      });
+    }, 3600000); // 3600000 milliseconds = 1 hour
 
+    // Clean up the interval when the component unmounts
+    return () => clearInterval(alertInterval);
   }, []);
 
+  const handleSwitchChange = () => {
+    setIsSwitchOn(!isSwitchOn);
+    console.log(isSwitchOn);
+    // Handle other actions based on the switch state
+  };
 
   return (
     <BrowserRouter>
@@ -82,6 +110,7 @@ const App = () => {
         <Route path="/coins/:id" element={<CoinPage showAlert={showAlert} />} />
         <Route path="/chats" element={<Chatpage />} />
       </Routes>
+      <Footer></Footer>
     </BrowserRouter>
   );
 };

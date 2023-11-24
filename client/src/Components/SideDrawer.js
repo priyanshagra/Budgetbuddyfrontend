@@ -127,9 +127,10 @@ function SideDrawer() {
         config
       );
       console.log(data);
-      if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
+      if (!(chats?.find((c) => c._id === data._id))) setChats([data, ...chats]);
       setSelectedChat(data);
       setLoadingChat(false);
+      navigate("/chats")
       onClose();
     } catch (error) {
       toast({

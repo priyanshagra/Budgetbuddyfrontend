@@ -3,11 +3,12 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import logo from "./budgetbuddysignin.jpeg";
 import { useToast } from "@chakra-ui/react";
+import { CryptoState } from "./CryptoContext";
 
 const Emailcheck = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
-
+  const { isSwitchOn } = CryptoState();
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   let navigate = useNavigate();
   const toast = useToast();
@@ -61,23 +62,46 @@ const Emailcheck = (props) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
-      <div className="sm:mx-auto sm:w-full sm:max-w-sm bg-pink-100 h-screen rounded-full m-5 p-8 shadow-lg">
-        <h2 className="text-center text-4xl font-bold text-white mt-6 mb-6">
-        <span className="text-pink-500">Budget Buddy</span>
+    <div
+      className={`min-h-screen ${
+        isSwitchOn
+          ? "bg-gradient-to-r from-neutral-400 via-white to-neutral-400"
+          : "bg-gradient-to-r from-gray-700 via-black to-gray-700"
+      } flex items-center justify-center`}
+    >
+      <div
+        className={`sm:mx-auto sm:w-full sm:max-w-sm ${
+          isSwitchOn
+            ? "bg-gradient-to-r from-neutral-400 via-white to-neutral-400"
+            : "bg-gradient-to-r from-gray-700 via-black to-gray-700"
+        } h-screen rounded-full m-5 p-8 shadow-lg`}
+      >
+        <h2 className="text-center text-4xl font-bold text-white mt-6 mb-6 animate-pulse">
+          <span
+            className={`${isSwitchOn ? "text-green-800" : "text-green-400"}`}
+          >
+            Budget Buddy
+          </span>
         </h2>
-        <h2 className="text-center text-4xl font-bold text-white mb-6">
+        <h2
+          className={`text-center text-2xl font-bold ${
+            isSwitchOn ? "text-grey-100" : "text-gray-200"
+          } mb-6`}
+        >
           Sign in
         </h2>
 
         <div className="flex flex-row justify-center items-center">
-          <div className="rounded-lg p-2 bg-pink-100 hover:bg-black transition">
+          <div className={`rounded-lg p-2 transition`}>
             <img src={logo} alt="" className="h-20 w-20" />
           </div>
-
         </div>
 
-        <div className="rounded-lg p-2 bg-pink-100 hover:bg-pink-200 transition">
+        <div
+          className={`rounded-lg p-2 ${
+            isSwitchOn ? "hover:bg-neutral-500" : "hover:bg-gray-900"
+          } sm:mx-auto sm:w-full sm:max-w-smtransition`}
+        >
           {/* <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 text-white text-white text-4xl font-bold animate-pulse">
             Sign in to your account
           </h2> */}
@@ -91,7 +115,9 @@ const Emailcheck = (props) => {
             <div>
               <label
                 htmlFor="email"
-                className="ml-1 text-white block text-sm font-medium leading-6 text-gray-900"
+                className={`ml-1 ${
+                  isSwitchOn ? "text-gray-100" : "text-white"
+                } block text-sm font-medium leading-6 text-gray-900`}
               >
                 Email address
               </label>
@@ -104,17 +130,20 @@ const Emailcheck = (props) => {
                   required
                   value={credentials.email}
                   onChange={onChange}
-                  className="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className={`pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${
+                    isSwitchOn ? "focus:ring-gray-300" : "focus:ring-indigo-600"
+                  } sm:text-sm sm:leading-6`}
                 />
               </div>
             </div>
-         
 
             <div>
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
-                  className="ml-1 text-white block text-sm font-medium leading-6 text-gray-900"
+                  className={`ml-1 ${
+                    isSwitchOn ? "text-gray-100" : "text-white"
+                  } block text-sm font-medium leading-6 text-gray-900`}
                 >
                   Password
                 </label>
@@ -136,7 +165,9 @@ const Emailcheck = (props) => {
                   required
                   value={credentials.password}
                   onChange={onChange}
-                  className="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className={`pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${
+                    isSwitchOn ? "focus:ring-gray-300" : "focus:ring-indigo-600"
+                  } sm:text-sm sm:leading-6`}
                 />
               </div>
             </div>
@@ -144,14 +175,18 @@ const Emailcheck = (props) => {
             <div>
               <button
                 type="submit"
-                className="px-6 py-3 bg-blue-500 text-white border border-blue-500 rounded-md transition-opacity hover:opacity-75 focus:outline-none focus:shadow-outline-blue flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className={`px-6 py-3 bg-blue-500 text-white border border-white rounded-md transition-opacity hover:opacity-75 focus:outline-none focus:shadow-outline-blue flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm ${
+                  isSwitchOn
+                    ? "bg-neutral-500 hover:bg-neutral-400"
+                    : "bg-gray-900 hover:bg-gray-700"
+                } focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
               >
-              Sign in
-            </button>
-          </div>
-        </form>
+                Sign in
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
     </div>
   );
 };

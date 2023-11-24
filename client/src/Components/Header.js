@@ -36,6 +36,11 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Montserrat",
     fontWeight: "bold",
     cursor: "pointer",
+
+    "&:hover": {
+      cursor: "pointer", // Change the cursor to a pointer on hover
+      textDecoration: "underline", // Add underline on hover
+    },
   },
 }));
 
@@ -57,11 +62,10 @@ const Header = (props) => {
   console.log(currency);
   return (
     <div>
-
       <ThemeProvider>
         <AppBar color="transparent" position="static">
           <Container>
-            <Typography className={classes.title} variant="h6">
+            <Typography  variant="h6">
               {<SideDrawer />}
             </Typography>
             <Toolbar>
@@ -122,44 +126,44 @@ const Header = (props) => {
                   </DrawerContent>
                 </Drawer>
               </div>
-              
-                <Typography
-                  className={classes.title}
-                  variant="h6"
-                  onClick={() => history("/")}
-                >
-                  <span className="hidden lg:block">Dashboard</span>
-                </Typography>
 
-                <Typography
-                  className={classes.title}
-                  variant="h6"
-                  onClick={() => history("/stocks")}
-                >
-                  <span className="hidden lg:block">Stocks/cryptos</span>
-                </Typography>
-                <Typography
-                  className={classes.title}
-                  variant="h6"
-                  onClick={() => history("/income")}
-                >
-                  <span className="hidden lg:block">Income</span>
-                </Typography>
-                <Typography
-                  className={classes.title}
-                  variant="h6"
-                  onClick={() => history("/expenses")}
-                >
-                  <span className="hidden lg:block">Expenses</span>
-                </Typography>
-                <Typography
-                  className={classes.title}
-                  variant="h6"
-                  onClick={() => history("/chats")}
-                >
-                  <span className="hidden lg:block">Chats</span>
-                </Typography>
-          
+              <Typography
+                className={classes.title}
+                variant="h6"
+                onClick={() => history("/")}
+              >
+                <span className="hidden lg:block">Dashboard</span>
+              </Typography>
+
+              <Typography
+                className={classes.title}
+                variant="h6"
+                onClick={() => history("/stocks")}
+              >
+                <span className="hidden lg:block">Stocks/cryptos</span>
+              </Typography>
+              <Typography
+                className={classes.title}
+                variant="h6"
+                onClick={() => history("/income")}
+              >
+                <span className="hidden lg:block">Income</span>
+              </Typography>
+              <Typography
+                className={classes.title}
+                variant="h6"
+                onClick={() => history("/expenses")}
+              >
+                <span className="hidden lg:block">Expenses</span>
+              </Typography>
+              <Typography
+                className={classes.title}
+                variant="h6"
+                onClick={() => history("/chats")}
+              >
+                <span className="hidden lg:block">Chats</span>
+              </Typography>
+
               <Select
                 variant="outlined"
                 labelId="demo-simple-select-label"

@@ -4,8 +4,11 @@ import { useGlobalContext } from "./globalcontext";
 import { InnerLayout } from "./Layouts";
 import Form from "./form";
 import IncomeItem from "./incomeItem";
+import { CryptoState } from "./CryptoContext";
 
 function Income() {
+  const { isSwitchOn, setIsSwitchOn } = CryptoState();
+
   const { addIncome, incomes, getIncomes, deleteIncome, totalIncome } =
     useGlobalContext();
 
@@ -14,9 +17,13 @@ function Income() {
   }, []);
 
   return (
-    <IncomeStyled>
+    <IncomeStyled className={`${
+      isSwitchOn
+        ? "bg-gradient-to-r from-neutral-400 via-white to-neutral-400"
+        : "bg-gradient-to-r from-gray-700 via-black to-gray-700"
+    }`}>
       <InnerLayout>
-        <h2 className="total-income">
+        <h2 className={`total-income ${isSwitchOn?"bg-gray-200 hover:bg-gray-300 text-gray-800":"text-white bg-gray-700 hover:bg-gray-800"}`}>
           Total Income: <span>${totalIncome()}</span>
         </h2>
         <div className="income-content">
@@ -31,6 +38,7 @@ function Income() {
                 title={income.title}
                 description={income.description}
                 amount={income.amount}
+                currency={income.currency}
                 date={income.date}
                 type={income.type}
                 category={income.category}
@@ -46,6 +54,7 @@ function Income() {
 }
 
 const IncomeStyled = styled.div`
+
   display: flex;
   flex-direction: column;
 
@@ -53,7 +62,6 @@ const IncomeStyled = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #fcf6f9;
     border: 2px solid #ffffff;
     box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
     border-radius: 20px;
