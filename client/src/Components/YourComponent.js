@@ -1,10 +1,10 @@
 // Your main component or page
 import React from "react";
 import ExpenseTrackerFeature from "./ExpenseTrackerFeature";
-import "./hover.css";
+import "./hv.css";
 const YourComponent = () => {
   return (
-    <div className="container mx-auto mt-8 ">
+    <div className=" hv container mx-auto mt-8 ">
       <h1 className="text-3xl font-bold mb-8">Expense Tracker Features</h1>
       <div className=" cursor-pointer grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
         <div className="cursor-pointer transform transition-transform group-hover:scale-105 hover:text-blue-500 hover:translate-y-2 hover:transition-transform duration-300 ease-in-out ">
@@ -61,12 +61,7 @@ const YourComponent = () => {
           title="Mobile Accessibility"
           description="Access your expense tracker anytime, anywhere, with seamless mobile responsiveness."
         /></div>
-        <div className="cursor-pointer transform transition-transform group-hover:scale-105 hover:text-blue-500 hover:translate-y-2 hover:transition-transform duration-300 ease-in-out "> <ExpenseTrackerFeature
-          icon="📱"
-          className="hover-image"
-          title="Mobile Accessibility"
-          description="Access your expense tracker anytime, anywhere, with seamless mobile responsiveness."
-        /></div>
+        
        <div  className="cursor-pointer transform transition-transform group-hover:scale-105 hover:text-blue-500 hover:translate-y-2 hover:transition-transform duration-300 ease-in-out ">
         <ExpenseTrackerFeature
           icon="📈"

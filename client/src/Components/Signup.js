@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {gapi} from "gapi-script";
+import { gapi } from "gapi-script";
 import { GoogleLogin } from "react-google-login";
 import { useCookies } from "react-cookie";
-import Body from "./Body"
-import Footer from "./Footer"
-import BB from "./BB"
-import HHH from "./HHH"
-import Path from "./Path"
-import { ToastContainer } from 'react-toastify';
-import WelcomeToaster from "./WelcomeToaster"
+import Body from "./Body";
+import Footer from "./Footer";
+import BB from "./BB";
+import HHH from "./HHH";
+import Path from "./Path";
+import { ToastContainer } from "react-toastify";
+import WelcomeToaster from "./WelcomeToaster";
+import logo from "./immg.jpeg";
+import "./HomePageStyle.css";
 
-import Timeline from "./TimeLine"
+import Timeline from "./TimeLine";
 import { useToast } from "@chakra-ui/react";
 const Signup = () => {
   const [credentials, setCredentials] = useState({ email: "" });
@@ -26,12 +28,11 @@ const Signup = () => {
       });
     });
   }, []);
-  const failure=(error)=>{
+  const failure = (error) => {
     console.log(error);
-  }
+  };
   const responseGoogle = async (response) => {
-
-    console.log(response)
+    console.log(response);
     navigate("/loading");
     const response1 = await fetch(
       "http://localhost:8000/api/auth/createusergoogle",
@@ -60,17 +61,14 @@ const Signup = () => {
         isClosable: true,
         position: "bottom-left",
       });
-      console.log(json.success1)
-      if(json.success1)
-      {
+      console.log(json.success1);
+      if (json.success1) {
         setCookie("name", json.name);
         setCookie("pic", json.pic);
-        navigate('/');
-        window.location.reload()
-      }
-      else
-      {
-        navigate('/onboarding');
+        navigate("/");
+        window.location.reload();
+      } else {
+        navigate("/onboarding");
       }
     } else {
       toast({
@@ -81,51 +79,41 @@ const Signup = () => {
         isClosable: true,
         position: "bottom-left",
       });
-      navigate("/")
+      navigate("/");
     }
   };
 
   return (
-
-<>
-
-<WelcomeToaster></WelcomeToaster>
-<ToastContainer />
-<HHH></HHH>
-    <div className="bg-gray-900 flex justify-center">
+    <>
+      <WelcomeToaster></WelcomeToaster>
+      <ToastContainer />
+      {/* <HHH></HHH> */}
       
+        <div className=" dddt flex flex-col h-screen justify-end items-start">
+          <div className=" flex justify-end items-end h-screen ">
+            <button className="m-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+              <Link to="/emailcheck">Login</Link>
+            </button>
+            <button className="m-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+              <Link to="/authemail">Signup</Link>
+            </button>
+          </div>
 
-    <div className="flex justify-end p-4">
-      <div className=" bg-blue-300 p-4 rounded shadow-md ">
-      <button className=" m-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-        <Link to="/emailcheck">Login</Link>
-      </button>
-      <button className=" m-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-        <Link to="/authemail">Signup</Link>
-      </button>
-      <div className="bg-gray-900">
+          <div className="">
             <GoogleLogin
-      
-      
               clientId="504611249331-3l8vq2l7k662aof3rllqu4ldeo9cr535.apps.googleusercontent.com"
-              buttonText="Sign in with Google"
+              buttonText="Continue with Google"
               onSuccess={responseGoogle}
               onFailure={failure}
               cookiePolicy={"single_host_origin"}
-              
             />
-            </div>
-    </div>
-    </div>
-    </div>
-   
+          </div>
+        </div>
     
-    <Body></Body>
-    <Path></Path>
-    <Timeline></Timeline>
-    <Footer></Footer>
+      ;<Body></Body>
+      <Path></Path>
+      <Footer></Footer>
     </>
-
   );
 };
 

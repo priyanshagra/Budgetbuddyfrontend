@@ -3,8 +3,8 @@ import React from 'react';
 import "./ss.css"
 const Timeline = () => {
   return (
-    <div className="ss">
-    <div className="container mx-auto mt-0 bg-blue-300">
+    
+    <div className="ssttt container mx-auto mt-0 mb-0">
       <h2 className="flex justify-center mr-10 text-4xl font-bold mb-8">Income Tracker Timeline</h2>
 
       <div className="flex flex-col md:flex-row items-center md:items-start justify-between mb-12">
@@ -31,7 +31,7 @@ const Timeline = () => {
         {/* Add more timeline events as needed */}
       </div>
     </div>
-    </div>
+    
   );
 };
 
