@@ -15,10 +15,12 @@ import io from "socket.io-client";
 import UpdateGroupChatModal from "../Components/UpdateGroupChatModal";
 import { ChatState } from "../Components/ChatProvider";
 import { useCookies } from "react-cookie";
+import { CryptoState } from "./CryptoContext";
 const ENDPOINT = "http://localhost:8000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
+  const { isSwitchOn, setIsSwitchOn } = CryptoState();
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState("");
@@ -204,7 +206,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             flexDir="column"
             justifyContent="flex-end"
             p={3}
-            bg="#E8E8E8"
+            className={`border-2`}
             w="100%"
             h="100%"
             borderRadius="lg"
@@ -257,6 +259,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         <Box d="flex" alignItems="center" justifyContent="center" h="100%">
           <Text fontSize="3xl" pb={3} fontFamily="Work sans">
             Click on a user to start chatting
+            <hr/>
           </Text>
         </Box>
       )}
