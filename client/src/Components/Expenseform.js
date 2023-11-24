@@ -9,6 +9,8 @@ import axios from "axios";
 import { useToast } from "@chakra-ui/toast";
 
 function ExpenseForm() {
+  const { isSwitchOn, setIsSwitchOn } = CryptoState();
+
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   const { getExpenses, error, setError } = useGlobalContext();
   const { currency, symbol } = CryptoState();
@@ -91,7 +93,9 @@ function ExpenseForm() {
 }
 
   return (
-    <ExpenseFormStyled onSubmit={handleSubmit}>
+    <ExpenseFormStyled className={`rounded-lg p-2 ${
+      isSwitchOn ? "hover:bg-neutral-300" : "hover:bg-gray-700"
+    } sm:mx-auto sm:w-full sm:max-w-smtransition`} onSubmit={handleSubmit}>
       {error && <p className="error">{error}</p>}
       <div className="input-control">
         <input
@@ -100,6 +104,8 @@ function ExpenseForm() {
           name={"title"}
           placeholder="Expense Title"
           onChange={handleInput("title")}
+          className={`${isSwitchOn?"text-gray-900":"text-white"}`}
+
         />
       </div>
       <div className="input-control flex flex-row items-center ">
@@ -110,6 +116,8 @@ function ExpenseForm() {
           name={"amount"}
           placeholder={"Enter Expense Amount"}
           onChange={handleInput("amount")}
+          className={`${isSwitchOn?"text-gray-900":"text-white"}`}
+
         />
       </div>
       <div className="input-control">
@@ -119,7 +127,7 @@ function ExpenseForm() {
           name="dob"
           required={true}
           onChange={handleInput("date")}
-          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          className={`block ${isSwitchOn?"text-gray-900":"text-white"} w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}
         />
       </div>
       <div className="selects input-control">
@@ -129,6 +137,8 @@ function ExpenseForm() {
           name="category"
           id="category"
           onChange={handleInput("category")}
+          className={`${isSwitchOn?"text-gray-900":"text-white"}`}
+
         >
           <option value="" disabled>
             Select Option
@@ -152,9 +162,15 @@ function ExpenseForm() {
           cols="30"
           rows="4"
           onChange={handleInput("description")}
+          className={`${isSwitchOn?"text-gray-900":"text-white"}`}
+
         ></textarea>
       </div>
-      <div className="submit-btn">
+      <div className={`px-6 py-3 text-white border border-white rounded-md transition-opacity hover:opacity-75 focus:outline-none focus:shadow-outline-blue flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm ${
+                  isSwitchOn
+                    ? "bg-neutral-300 text-black hover:bg-neutral-400"
+                    : "bg-gray-800 hover:bg-gray-700"
+                } submit-btn` }>
         <Button
           name={"Add Expense"}
           icon={plus}
@@ -184,10 +200,6 @@ const ExpenseFormStyled = styled.form`
     background: transparent;
     resize: none;
     box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
-    color: rgba(34, 34, 96, 0.9);
-    &::placeholder {
-      color: rgba(34, 34, 96, 0.4);
-    }
   }
   .input-control {
     span {
@@ -201,7 +213,6 @@ const ExpenseFormStyled = styled.form`
       background: transparent;
       resize: none;
       box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
-      color: rgba(34, 34, 96, 0.9);
     }
     input {
       width: 100%;

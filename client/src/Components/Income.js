@@ -7,6 +7,8 @@ import IncomeItem from "./incomeItem";
 import { CryptoState } from "./CryptoContext";
 
 function Income() {
+  const { isSwitchOn, setIsSwitchOn } = CryptoState();
+
   const { addIncome, incomes, getIncomes, deleteIncome, totalIncome } =
     useGlobalContext();
 
@@ -17,10 +19,14 @@ function Income() {
   }, []);
 
   return (
-    <IncomeStyled>
+    <IncomeStyled className={`${
+      isSwitchOn
+        ? "bg-gradient-to-r from-neutral-400 via-white to-neutral-400"
+        : "bg-gradient-to-r from-gray-700 via-black to-gray-700"
+    }`}>
       <InnerLayout>
-        <h2 className="total-income">
-          Total Income: <span>{symbol} {totalIncome()}</span>
+        <h2 className={`total-income ${isSwitchOn?"bg-gray-200 hover:bg-gray-300 text-gray-800":"text-white bg-gray-700 hover:bg-gray-800"}`}>
+          Total Income: <span>${totalIncome()}</span>
         </h2>
         <div className="income-content">
           <div className="form-container">
@@ -55,13 +61,9 @@ const IncomeStyled = styled.div`
   flex-direction: column;
 
   .total-income {
-    &:hover {
-        background: #f0e2e5; /* Change the background color on hover */
-      }
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #fcf6f9;
     border: 2px solid #ffffff;
     box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
     border-radius: 20px;

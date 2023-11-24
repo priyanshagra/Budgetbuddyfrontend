@@ -21,6 +21,7 @@ function Form() {
     category: "",
     description: "",
   });
+  const { isSwitchOn, setIsSwitchOn } = CryptoState();
 
   const { title, amount, date, category, description } = inputState;
 
@@ -89,7 +90,9 @@ function Form() {
   };
 
   return (
-    <FormStyled onSubmit={handleSubmit}>
+    <FormStyled  className={`rounded-lg p-2 ${
+      isSwitchOn ? "hover:bg-neutral-300" : "hover:bg-gray-700"
+    } sm:mx-auto sm:w-full sm:max-w-smtransition`} onSubmit={handleSubmit}>
       {error && <p className="error">{error}</p>}
       <div className="input-control">
         <input
@@ -99,6 +102,8 @@ function Form() {
           name={"title"}
           placeholder="Salary Title"
           onChange={handleInput("title")}
+          className={`${isSwitchOn?"text-gray-900":"text-white"}`}
+
         />
       </div>
       <div className="input-control flex flex-row items-center ">
@@ -110,6 +115,8 @@ function Form() {
           name={"amount"}
           placeholder={"Enter Salary Amount"}
           onChange={handleInput("amount")}
+          className={`${isSwitchOn?"text-gray-900":"text-white"}`}
+
         />
       </div>
       <div className="input-control">
@@ -119,7 +126,7 @@ function Form() {
           name="dob"
           required
           onChange={handleInput("date")}
-          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          className={`block ${isSwitchOn?"text-gray-900":"text-white"} w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}
         />
       </div>
       <div className="selects input-control">
@@ -129,6 +136,8 @@ function Form() {
           name="category"
           id="category"
           onChange={handleInput("category")}
+          className={`${isSwitchOn?"text-gray-900":"text-white"}`}
+
         >
           <option value="" disabled>
             Select Option
@@ -153,10 +162,16 @@ function Form() {
           rows="4"
           required
           onChange={handleInput("description")}
+          className={`${isSwitchOn?"text-gray-900":"text-white"}`}
+
         ></textarea>
       </div>
-      <div className="submit-btn">
-        <Button
+      <div className={`px-6 py-3 text-white border border-white rounded-md transition-opacity hover:opacity-75 focus:outline-none focus:shadow-outline-blue flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm ${
+                  isSwitchOn
+                    ? "bg-neutral-300 text-black hover:bg-neutral-400"
+                    : "bg-gray-800 hover:bg-gray-700"
+                } submit-btn`}>
+        <Button 
           name={"Add Income"}
           icon={plus}
           bPad={".8rem 1.6rem"}
@@ -185,10 +200,6 @@ const FormStyled = styled.form`
     background: transparent;
     resize: none;
     box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
-    color: rgba(34, 34, 96, 0.9);
-    &::placeholder {
-      color: rgba(34, 34, 96, 0.4);
-    }
   }
   .input-control {
     span {
@@ -202,7 +213,6 @@ const FormStyled = styled.form`
       background: transparent;
       resize: none;
       box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
-      color: rgba(34, 34, 96, 0.9);
     }
     input {
       width: 100%;
@@ -223,6 +233,7 @@ const FormStyled = styled.form`
 
   .submit-btn {
     button {
+      width: 50%;
       box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
       &:hover {
         background: var(--color-green) !important;

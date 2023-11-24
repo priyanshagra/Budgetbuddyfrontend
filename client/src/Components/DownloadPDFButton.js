@@ -5,6 +5,8 @@ import { CryptoState } from './CryptoContext';
 const DownloadPDFButton = ({ jsonData }) => {
 
     const { currency,symbol,exchangeRatei,exchangeRateu } = CryptoState();
+  const { isSwitchOn, setIsSwitchOn } = CryptoState();
+
   const handleDownload = () => {
     const pdf = new jsPDF();
     pdf.text(10, 10, 'Expenses till Now');
@@ -21,7 +23,11 @@ const DownloadPDFButton = ({ jsonData }) => {
   };
 
   return (
-    <button className="flex w-auto justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onClick={handleDownload}>Download Expense Report</button>
+    <button className={`px-6 py-3 bg-blue-500 text-white border border-white rounded-md transition-opacity hover:opacity-75 focus:outline-none focus:shadow-outline-blue flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm ${
+      isSwitchOn
+        ? "bg-neutral-500 hover:bg-neutral-400"
+        : "bg-gray-900 hover:bg-gray-700"
+    } focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`} onClick={handleDownload}>Download Expense Report</button>
   );
 };
 

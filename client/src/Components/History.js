@@ -4,6 +4,8 @@ import { useGlobalContext } from './globalcontext';
 import { CryptoState } from './CryptoContext';
 
 function History() {
+    const { isSwitchOn, setIsSwitchOn } = CryptoState();
+
     const {transactionHistory} = useGlobalContext()
 
     const { currency,symbol,exchangeRatei,exchangeRateu } = CryptoState();
@@ -15,7 +17,7 @@ function History() {
             {history.map((item) =>{
                 const {_id, title, amount, type,currency} = item
                 return (
-                    <div key={_id} className="history-item">
+                    <div key={_id} className={`history-item ${isSwitchOn?"bg-gray-300 hover:bg-gray-400 text-gray-800":"text-white bg-gray-700 hover:bg-gray-800"}`}>
                         <p style={{
                             color: type === 'expense' ? 'red' : 'green'
                         }}>
@@ -41,7 +43,7 @@ const HistoryStyled = styled.div`
     flex-direction: column;
     gap: 1rem;
     .history-item{
-        background: #FCF6F9;
+        // background: #FCF6F9;
         border: 2px solid #FFFFFF;
         box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
         padding: 1rem;
@@ -50,9 +52,9 @@ const HistoryStyled = styled.div`
         justify-content: space-between;
         align-items: center;
 
-        &:hover {
-            background: #f0e2e5; /* Change the background color on hover */
-          }
+        // &:hover {
+        //     background: #f0e2e5; /* Change the background color on hover */
+        //   }
     }
 `;
 
