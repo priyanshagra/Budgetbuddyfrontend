@@ -121,7 +121,6 @@ const Signup = () => {
     <Body></Body>
     <Path></Path>
     <Timeline></Timeline>
-    <Footer></Footer>
     </>
 
   );

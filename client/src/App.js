@@ -22,6 +22,7 @@ import SideDrawer from "./Components/SideDrawer.js";
 import { useGlobalContext } from "./Components/globalcontext.js";
 import { Switch, Toast, useToast } from "@chakra-ui/react";
 import { CryptoState } from "./Components/CryptoContext.js";
+import Footer from "./Components/Footer.js";
 
 const App = () => {
   const { incomes, expenses } = useGlobalContext();
@@ -77,12 +78,7 @@ const App = () => {
     <BrowserRouter>
       
       {login && <Header />}
-    <Switch
-        id="email-alerts"
-        onChange={handleSwitchChange}
-        isChecked={isSwitchOn}
-        className="float-right m-2"
-      />
+
       <Routes>
         {login ? (
           <Route path="/" element={<Dashboard />} />
@@ -115,6 +111,7 @@ const App = () => {
         <Route path="/coins/:id" element={<CoinPage showAlert={showAlert} />} />
         <Route path="/chats" element={<Chatpage />} />
       </Routes>
+      <Footer></Footer>
     </BrowserRouter>
   );
 };

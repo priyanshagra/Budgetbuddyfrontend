@@ -1,16 +1,39 @@
 // Footer.js
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faTwitter, faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFacebook,
+  faTwitter,
+  faInstagram,
+  faLinkedin,
+} from "@fortawesome/free-brands-svg-icons";
+import { Switch } from "@chakra-ui/switch";
+import { CryptoState } from "./CryptoContext";
 
 const Footer = () => {
+
+    const { isSwitchOn, setIsSwitchOn } = CryptoState();
+
+    const handleSwitchChange = () => {
+        setIsSwitchOn(!isSwitchOn);
+        console.log(isSwitchOn);
+        // Handle other actions based on the switch state
+      };
   return (
     <footer className="bg-gray-800 text-white p-8">
+        <Switch
+        id="email-alerts"
+        onChange={handleSwitchChange}
+        isChecked={isSwitchOn}
+        className="float-right m-2"
+      />
       <div className="container mx-auto flex flex-wrap justify-between">
         <div className="w-full md:w-1/4 mb-4 md:mb-0">
           <h3 className="text-lg font-semibold mb-2">About Us</h3>
-          <p className="text-sm">Committed to providing you with a seamless experience for managing your income and expenses.
-</p>
+          <p className="text-sm">
+            Committed to providing you with a seamless experience for managing
+            your income and expenses.
+          </p>
         </div>
 
         <div className="w-full md:w-1/4 mb-4 md:mb-0">
