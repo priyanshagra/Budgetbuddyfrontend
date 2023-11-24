@@ -37,6 +37,7 @@ function IncomeItem({
   indicatorColor,
   type,
 }) {
+  const { isSwitchOn, setIsSwitchOn } = CryptoState();
   const categoryIcon = () => {
     switch (category) {
       case "salary":
@@ -84,11 +85,11 @@ function IncomeItem({
   };
   const { symbol,exchangeRatei,exchangeRateu } = CryptoState();
   return (
-    <IncomeItemStyled indicator={indicatorColor}>
-      <div className="icon">
+    <IncomeItemStyled className={`${isSwitchOn?"bg-gray-200 hover:bg-gray-300 text-gray-800":"text-white bg-gray-700 hover:bg-gray-800"}`} indicator={indicatorColor}>
+      <div className={`${isSwitchOn?"bg-gray-200 hover:bg-gray-300 text-gray-800":"text-white bg-gray-700 hover:bg-gray-800"} icon`}>
         {type === "expense" ? expenseCatIcon() : categoryIcon()}
       </div>
-      <div className="content">
+      <div className={`content ${isSwitchOn?"bg-gray-200 hover:border-2 text-gray-800":"text-white bg-gray-700 hover:border-2"}`}>
         <h5>{title}</h5>
         <div className="inner-content">
           <div className="text">
@@ -122,10 +123,6 @@ function IncomeItem({
 }
 
 const IncomeItemStyled = styled.div`
-&:hover {
-    background: #f0e2e5; /* Change the background color on hover */
-  }
-  background: #fcf6f9;
   border: 2px solid #ffffff;
   box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
   border-radius: 20px;
@@ -140,7 +137,6 @@ const IncomeItemStyled = styled.div`
     width: 80px;
     height: 80px;
     border-radius: 20px;
-    background: #f5f5f5;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -148,15 +144,9 @@ const IncomeItemStyled = styled.div`
     i {
       font-size: 2.6rem;
     }
-    &:hover {
-        background: #f0e2e5; /* Change the background color on hover */
-      }
   }
 
   .content {
-    &:hover {
-        background: #f0e2e5; /* Change the background color on hover */
-      }
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -195,9 +185,6 @@ const IncomeItemStyled = styled.div`
         }
       }
     }
-    &:hover {
-        background: #f0e2e5; /* Change the background color on hover */
-      }
   }
 
   @media screen and (max-width: 768px) {
