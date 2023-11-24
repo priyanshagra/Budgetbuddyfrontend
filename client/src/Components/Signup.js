@@ -125,9 +125,9 @@ const Signup = () => {
 
         
       </div>
-      ;<Body></Body>
+      <Body></Body>
       <Path></Path>
-      <Footer></Footer>
+      
     </>
   );
 };
