@@ -19,6 +19,7 @@ function Form() {
     category: "",
     description: "",
     maker: cookies.UserId,
+    currency:currency
   });
 
   const { title, amount, date, category, description } = inputState;
@@ -38,6 +39,7 @@ function Form() {
       category: "",
       description: "",
       maker: cookies.Userid,
+      currency:currency
     });
   };
 

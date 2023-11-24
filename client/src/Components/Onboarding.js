@@ -26,9 +26,25 @@ const Onboarding = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (!name || !password || !confirmpassword || !pic) {
+        toast({
+            title: "Error Occured!",
+            description: "unsuccesfull onboarding try again",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom-left",
+          });
       return;
     }
     if (password !== confirmpassword) {
+        toast({
+            title: "Error Occured!",
+            description: "unsuccesfull onboarding try again",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom-left",
+          });
       return;
     }
 
@@ -58,8 +74,8 @@ const Onboarding = () => {
         isClosable: true,
         position: "bottom-left",
       });
-      window.location.reload();
       navigate("/");
+      window.location.reload();
     } else {
       toast({
         title: "Error Occured!",

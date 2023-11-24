@@ -31,6 +31,7 @@ function Income() {
                 title={income.title}
                 description={income.description}
                 amount={income.amount}
+                currency={income.currency}
                 date={income.date}
                 type={income.type}
                 category={income.category}

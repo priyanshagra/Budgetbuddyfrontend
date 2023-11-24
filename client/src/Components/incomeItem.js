@@ -23,11 +23,13 @@ import {
   yt,
 } from "./Icons";
 import Button from "./Button";
+import { CryptoState } from "./CryptoContext";
 
 function IncomeItem({
   id,
   title,
   amount,
+  currency,
   date,
   category,
   description,
@@ -80,7 +82,7 @@ function IncomeItem({
         return "";
     }
   };
-
+  const { symbol,exchangeRatei,exchangeRateu } = CryptoState();
   return (
     <IncomeItemStyled indicator={indicatorColor}>
       <div className="icon">
@@ -91,7 +93,7 @@ function IncomeItem({
         <div className="inner-content">
           <div className="text">
             <p>
-              {dollar} {amount}
+              {symbol} {(currency=="INR"?amount*exchangeRatei:amount*exchangeRateu).toFixed(2)}
             </p>
             <p>
               {calender} {dateFormat(date)}

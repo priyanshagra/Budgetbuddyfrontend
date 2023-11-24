@@ -76,7 +76,6 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      
       {login && <Header />}
 
       <Routes>

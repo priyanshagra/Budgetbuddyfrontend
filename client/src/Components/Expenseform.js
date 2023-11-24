@@ -17,6 +17,7 @@ function ExpenseForm() {
     category: "",
     description: "",
     maker: cookies.UserId,
+    currency:currency
   });
 
   const { title, amount, date, category, description } = inputState;
@@ -36,6 +37,7 @@ function ExpenseForm() {
       category: "",
       description: "",
       maker: cookies.Userid,
+      currency:currency
     });
   };
 
