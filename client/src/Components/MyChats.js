@@ -10,8 +10,10 @@ import { Button } from "@chakra-ui/react";
 import { ChatState } from "../Components/ChatProvider";
 import { useCookies } from "react-cookie";
 import { TextField } from "@material-ui/core";
+import { CryptoState } from "./CryptoContext";
 
 const MyChats = ({ fetchAgain }) => {
+  const { isSwitchOn, setIsSwitchOn } = CryptoState();
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   const { selectedChat, setSelectedChat, chats, setChats } = ChatState();
   const [search, setSearch] = useState("");
@@ -66,7 +68,7 @@ const MyChats = ({ fetchAgain }) => {
       flexDir="column"
       alignItems="center"
       p={3}
-      bg="white"
+      bg={`${isSwitchOn?"black":"silver"}`}
       w={{ base: "100%", md: "31%" }}
       borderRadius="lg"
       borderWidth="1px"
@@ -93,10 +95,14 @@ const MyChats = ({ fetchAgain }) => {
           </Button>
         </GroupChatModal>
         <TextField
+        className="mt-2"
           label="Search for chats"
           variant="outlined"
           style={{ marginBottom: 20, width: "100%" }}
           onChange={(e) => setSearch(e.target.value)}
+          InputProps={{
+        style: { color: 'white' }
+      }}
         />
         <Box
           display="flex"
