@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import ProfileModal from "../Components/ProfileModal";
+import { BsEmojiSmile } from "react-icons/bs";
 import ScrollableChat from "../Components/ScrollableChat";
 import Lottie from "react-lottie";
 import animationData from "../Components/typing.json";
@@ -15,6 +16,8 @@ import io from "socket.io-client";
 import UpdateGroupChatModal from "../Components/UpdateGroupChatModal";
 import { ChatState } from "../Components/ChatProvider";
 import { useCookies } from "react-cookie";
+import Picker, { SKIN_TONE_MEDIUM_DARK } from "emoji-picker-react";
+import EmojiPicker from "react-emoji-picker";
 const ENDPOINT = "http://localhost:8000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
 var socket, selectedChatCompare;
 
@@ -27,6 +30,16 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [istyping, setIsTyping] = useState(false);
   const toast = useToast();
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  const [showEmoji, setShowEmoji] = useState(false);
+
+
+  const [chosenEmoji, setChosenEmoji] = useState(null);
+
+  const onEmojiClick = (event, emojiObject) => {
+    console.log(emojiObject);
+    setChosenEmoji(emojiObject);
+    setNewMessage([...messages, emojiObject.emoji]);
+  };
 
   const defaultOptions = {
     loop: true,
@@ -43,12 +56,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     if (!selectedChat) return;
 
     try {
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": cookies.UserId,
-              },
-          };
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": cookies.UserId,
+        },
+      };
 
       setLoading(true);
       console.log(selectedChat);
@@ -77,11 +90,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       socket.emit("stop typing", selectedChat._id);
       try {
         const config = {
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": cookies.UserId,
-              },
-          };
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": cookies.UserId,
+          },
+        };
         setNewMessage("");
         const { data } = await axios.post(
           "http://localhost:8000/api/message/",
@@ -117,7 +130,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   }, []);
 
   useEffect(() => {
-    
     fetchMessages();
 
     selectedChatCompare = selectedChat;
@@ -139,6 +151,18 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       }
     });
   });
+
+  const EmojiData = ({ chosenEmoji }) => (
+    <div style={{ textAlign: "center", marginRight: "810px" }}>
+      <br></br>
+      <br></br>
+      <hr></hr>
+      <strong>Names:</strong> {chosenEmoji.names}
+      <br />
+      <strong>Symbol:</strong> {chosenEmoji.emoji}
+      <br />
+    </div>
+  );
 
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
@@ -242,13 +266,38 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               ) : (
                 <></>
               )}
-              <Input
-                variant="filled"
-                bg="#E0E0E0"
-                placeholder="Enter a message.."
-                value={newMessage}
-                onChange={typingHandler}
-              />
+              <Box display="flex"
+              flexDir="row"
+               >
+                
+            {showEmoji && (
+              <div className="absolute top-[100%] w-100 right-2">
+                <Picker
+                //   data={data}
+                  emojiSize={20}
+                  emojiButtonSize={28}
+                //   onEmojiSelect={addEmoji}
+                  maxFrequentRows={0}
+                />
+              </div>
+            )}
+                
+                  <span onClick={() => setShowEmoji(!showEmoji)} className=" border-2 border-blue-500 mr-1 cursor-pointer hover:text-slate-300 inline-flex items-center justify-center bg-gray-200 rounded-full p-2">
+                    <BsEmojiSmile className="text-xl"  />
+                  </span>
+                   
+                
+                  <Input
+                    variant="filled"
+                    bg="#E0E0E0"
+                    w={"100%"}
+                    placeholder="Enter a message..."
+                    value={newMessage}
+                    onChange={typingHandler}
+                  />
+
+              
+              </Box>
             </FormControl>
           </Box>
         </>
