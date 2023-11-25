@@ -60,7 +60,9 @@ const Header = (props) => {
   const history = useNavigate();
   const { currency, setCurrency } = CryptoState();
   console.log(currency);
+  
   return (
+    
     <div>
       <ThemeProvider>
         <AppBar color="transparent" position="static">
@@ -172,8 +174,8 @@ const Header = (props) => {
                 style={{ width: 100, height: 40, marginLeft: 15 }}
                 onChange={(e) => setCurrency(e.target.value)}
               >
-                <MenuItem value={"USD"}>USD</MenuItem>
-                <MenuItem value={"INR"}>INR</MenuItem>
+                <MenuItem className="border-red-500" value={"USD"}>USD</MenuItem>
+                <MenuItem  className=" border-red-500 "value={"INR"}>INR</MenuItem>
               </Select>
             </Toolbar>
           </Container>

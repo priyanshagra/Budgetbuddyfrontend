@@ -18,10 +18,12 @@ import { ChatState } from "../Components/ChatProvider";
 import { useCookies } from "react-cookie";
 import Picker, { SKIN_TONE_MEDIUM_DARK } from "emoji-picker-react";
 import EmojiPicker from "react-emoji-picker";
+import { CryptoState } from "./CryptoContext";
 const ENDPOINT = "http://localhost:8000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
+  const { isSwitchOn, setIsSwitchOn } = CryptoState();
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState("");
@@ -207,8 +209,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             {messages &&
               (!selectedChat.isGroupChat ? (
                 <>
+                <div className={`${isSwitchOn?"text-white":"text-black"}`} >
                   {getSender(cookies.UserId, selectedChat.users)}
+                  </div>
                   <ProfileModal
+                  
                     user={getSenderFull(cookies.UserId, selectedChat.users)}
                   />
                 </>
@@ -223,12 +228,13 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 </>
               ))}
           </Text>
+          <div></div>
           <Box
             display="flex"
             flexDir="column"
             justifyContent="flex-end"
             p={3}
-            bg="#E8E8E8"
+            className={`border-2`}
             w="100%"
             h="100%"
             borderRadius="lg"
@@ -303,11 +309,15 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         </>
       ) : (
         // to get socket.io on same page
+       
         <Box d="flex" alignItems="center" justifyContent="center" h="100%">
           <Text fontSize="3xl" pb={3} fontFamily="Work sans">
-            Click on a user to start chatting
+            <div className={`${isSwitchOn?" bg-lime-500 text-black":"bg-green-400 bg-white"}`}>Click on a user to start chatting</div>
+            
+            <hr/>
           </Text>
         </Box>
+        
       )}
     </>
   );
