@@ -13,10 +13,11 @@ import ScrollableChat from "../Components/ScrollableChat";
 import Lottie from "react-lottie";
 import animationData from "../Components/typing.json";
 import io from "socket.io-client";
+import data from "@emoji-mart/data";
 import UpdateGroupChatModal from "../Components/UpdateGroupChatModal";
 import { ChatState } from "../Components/ChatProvider";
 import { useCookies } from "react-cookie";
-import Picker, { SKIN_TONE_MEDIUM_DARK } from "emoji-picker-react";
+import Picker from "@emoji-mart/react";
 import EmojiPicker from "react-emoji-picker";
 import { CryptoState } from "./CryptoContext";
 const ENDPOINT = "http://localhost:8000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
@@ -34,8 +35,17 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   const [showEmoji, setShowEmoji] = useState(false);
 
-
   const [chosenEmoji, setChosenEmoji] = useState(null);
+
+  const addEmoji = (e) => {
+    console.log("hello");
+    const sym = e.unified.split("_");
+    const codeArray = [];
+    sym.forEach((el) => codeArray.push("0x" + el));
+    let emoji = String.fromCodePoint(...codeArray);
+
+    setNewMessage([...newMessage, emoji]);
+  };
 
   const onEmojiClick = (event, emojiObject) => {
     console.log(emojiObject);
@@ -209,17 +219,22 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             {messages &&
               (!selectedChat.isGroupChat ? (
                 <>
-                <div className={`${isSwitchOn?"text-white":"text-black"}`} >
-                  {getSender(cookies.UserId, selectedChat.users)}
+                  <div
+                    className={`${isSwitchOn ? "text-white" : "text-black"}`}
+                  >
+                    {getSender(cookies.UserId, selectedChat.users)}
                   </div>
                   <ProfileModal
-                  
                     user={getSenderFull(cookies.UserId, selectedChat.users)}
                   />
                 </>
               ) : (
                 <>
-                  {selectedChat.chatName.toUpperCase()}
+                  <div
+                    className={`${isSwitchOn ? "text-white" : "text-black"}`}
+                  >
+                    {selectedChat.chatName.toUpperCase()}
+                  </div>
                   <UpdateGroupChatModal
                     fetchMessages={fetchMessages}
                     fetchAgain={fetchAgain}
@@ -272,27 +287,16 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               ) : (
                 <></>
               )}
-              <Box display="flex"
-              flexDir="row"
-               >
+              <Box display="flex" flexDir="row">
                 
-            {showEmoji && (
-              <div className="absolute top-[100%] w-100 right-2">
-                <Picker
-                //   data={data}
-                  emojiSize={20}
-                  emojiButtonSize={28}
-                //   onEmojiSelect={addEmoji}
-                  maxFrequentRows={0}
-                />
-              </div>
-            )}
                 
-                  <span onClick={() => setShowEmoji(!showEmoji)} className=" border-2 border-blue-500 mr-1 cursor-pointer hover:text-slate-300 inline-flex items-center justify-center bg-gray-200 rounded-full p-2">
-                    <BsEmojiSmile className="text-xl"  />
+                  <span
+                    onClick={() => setShowEmoji(!showEmoji)}
+                    className=" border-2 border-blue-500 mr-1 cursor-pointer hover:text-slate-300 inline-flex items-center justify-center bg-gray-200 rounded-full p-2"
+                  >
+                    <BsEmojiSmile className="text-xl" />
                   </span>
-                   
-                
+
                   <Input
                     variant="filled"
                     bg="#E0E0E0"
@@ -301,23 +305,41 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                     value={newMessage}
                     onChange={typingHandler}
                   />
-
-              
-              </Box>
+                </Box>
+          
             </FormControl>
+            
+
+                  {showEmoji && (
+                  <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+                    <Picker
+                      data={data}
+                      emojiSize={20}
+                      emojiButtonSize={28}
+                      onEmojiSelect={addEmoji}
+                      maxFrequentRows={0}
+                      style={{ position: 'absolute', width: '100%', height: '100%' }}
+                    /></div>
+                  )}
+              
           </Box>
         </>
       ) : (
         // to get socket.io on same page
-       
+
         <Box d="flex" alignItems="center" justifyContent="center" h="100%">
           <Text fontSize="3xl" pb={3} fontFamily="Work sans">
-            <div className={`${isSwitchOn?" bg-lime-500 text-black":"bg-green-400 bg-white"}`}>Click on a user to start chatting</div>
-            
-            <hr/>
+            <div
+              className={`${
+                isSwitchOn ? " bg-lime-500 text-black" : "bg-green-400 bg-white"
+              }`}
+            >
+              Click on a user to start chatting
+            </div>
+
+            <hr />
           </Text>
         </Box>
-        
       )}
     </>
   );

@@ -90,11 +90,11 @@ const Signup = () => {
       <WelcomeToaster></WelcomeToaster>
       <ToastContainer />
       {/* <HHH></HHH> */}
-      <div className="  ttt flex items-center flex-col h-screen justify-end items-start">
-        <div className="mt-5  p-5 tttt rounded-lg  bg-gradient-to-r from-blue-500 to-purple-500 min-h-screen flex flex-col items-center justify-center text-white">
+      <div className="  ttt flex items-center flex-col  justify-end items-start">
+        <div className="mt-5 mb-5 p-5 tttt rounded-5xl pr-40 pl-40 bg-gradient-to-r from-blue-500 to-purple-500 min-h- flex flex-col items-center justify-center text-white">
           <div className="text-center">
             <h1 className="text-5xl font-extrabold mb-4 tracking-wide">
-              Tech Buddy
+              Budget Buddy
             </h1>
             <p className="text-lg font-light leading-loose">
               Your Smart Expense Tracker
@@ -112,22 +112,19 @@ const Signup = () => {
               </div>
             </button>
             <div className=" ml-3 mt-2">
-          <GoogleLogin
-            clientId="504611249331-3l8vq2l7k662aof3rllqu4ldeo9cr535.apps.googleusercontent.com"
-            buttonText="Continue with Google"
-            onSuccess={responseGoogle}
-            onFailure={failure}
-            cookiePolicy={"single_host_origin"}
-          />
-        </div>
+              <GoogleLogin
+                clientId="504611249331-3l8vq2l7k662aof3rllqu4ldeo9cr535.apps.googleusercontent.com"
+                buttonText="Continue with Google"
+                onSuccess={responseGoogle}
+                onFailure={failure}
+                cookiePolicy={"single_host_origin"}
+              />
+            </div>
           </div>
         </div>
-
-        
       </div>
       <Body></Body>
       <Path></Path>
-      
     </>
   );
 };

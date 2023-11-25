@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     paddingTop: 25,
     justifyContent: "space-around",
+    marginBottom: "92px"
   },
   tagline: {
     display: "flex",

@@ -98,8 +98,11 @@ const MyChats = ({ fetchAgain }) => {
         <TextField
         className="mt-2"
           label="Search for chats"
+          InputLabelProps={{
+            style: { color: isSwitchOn ? 'white':'black' }, // Style for the label text
+          }}
           variant="outlined"
-          style={{ marginBottom: 20, width: "100%" }}
+          style={{marginTop: 10, marginBottom: 10, width: "100%",  border: isSwitchOn ? '1px solid white' : '1px solid black'}}
           onChange={(e) => setSearch(e.target.value)}
           InputProps={{
         style: { color: 'white' }

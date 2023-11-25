@@ -28,6 +28,7 @@ const Carousel = () => {
       height: "50%",
       display: "flex",
       alignItems: "center",
+      marginBottom: "92px"
     },
     carouselItem: {
       display: "flex",
@@ -36,6 +37,7 @@ const Carousel = () => {
       cursor: "pointer",
       textTransform: "uppercase",
       color: "black",
+      marginBottom: "92px"
     },
   }));
 
@@ -93,6 +95,7 @@ const Carousel = () => {
         responsive={responsive}
         items={items}
         autoPlay
+        
       />
     </div>
   );
