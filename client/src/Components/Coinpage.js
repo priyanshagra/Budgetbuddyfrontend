@@ -12,7 +12,7 @@ import { useToast } from "@chakra-ui/react";
 
 const CoinPage = () => {
 
-
+  const { isSwitchOn, setIsSwitchOn } = CryptoState();
     const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
     const toast = useToast();
@@ -96,6 +96,7 @@ const CoinPage = () => {
       fontWeight: "bold",
       marginBottom: 20,
       fontFamily: "Montserrat",
+      color: 'red'
     },
     description: {
       width: "100%",
@@ -129,6 +130,7 @@ const CoinPage = () => {
   if (!coin) return <LinearProgress style={{ backgroundColor: "gold" }} />;
 
   return (
+    <div className={`${isSwitchOn?"bg-gray-700":"bg-white"}`}>
     <div className={classes.container}>
       <div className={classes.sidebar}>
         <img
@@ -140,9 +142,11 @@ const CoinPage = () => {
         <Typography variant="h3" className={classes.heading}>
           {coin?.name}
         </Typography>
+        <div className={`${isSwitchOn?"text-white":"bg-white"}`}>
         <Typography variant="subtitle1" className={classes.description}>
           {ReactHtmlParser(coin?.description.en.split(". ")[0])}.
         </Typography>
+        
         <div className={classes.marketData}>
           <span style={{ display: "flex" }}>
             <Typography variant="h5" className={classes.heading}>
@@ -197,6 +201,7 @@ const CoinPage = () => {
             </Typography>
           </span>
         </div>
+        </div>
         <button
               class="h-10 px-5 m-2 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg hover:bg-indigo-800 h-12 px-6 m-2 text-lg"
               onClick={addtowatch}
@@ -205,6 +210,7 @@ const CoinPage = () => {
             </button>
       </div>
       <CoinInfo coin={coin} />
+    </div>
     </div>
   );
 };

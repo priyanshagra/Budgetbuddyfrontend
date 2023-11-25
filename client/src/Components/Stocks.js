@@ -7,6 +7,8 @@ import { SingleCoin } from "./Config/api";
 import { CryptoState } from "./CryptoContext";
 
 const Stocks = () => {
+  const { isSwitchOn, setIsSwitchOn } = CryptoState();
+
     const [cookies, setCookie, removeCookie] = useCookies(["user"]);
     const datainitial = [];
     const [datas, setdata] = useState(datainitial);
@@ -46,7 +48,7 @@ const Stocks = () => {
  
     console.log(datas)
   return (
-      <div style={{ backgroundColor: "black" }}>
+      <div className={`${isSwitchOn?"bg-black":"bg-white"}`}>
         <Banner />
         <CoinsTable />
       </div> 

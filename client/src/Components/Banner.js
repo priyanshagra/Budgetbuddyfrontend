@@ -146,7 +146,7 @@ function Banner() {
               fontFamily: "Montserrat",
             }}
           >
-            Eliter $ Crypto
+            <h1 className="text-red-700">Eliter $ Crypto</h1>
           </Typography>
           <Typography
             variant="subtitle2"
@@ -156,7 +156,7 @@ function Banner() {
               fontFamily: "Montserrat",
             }}
           >
-            Get all the Info regarding your favorite Crypto Currency
+            <h2 className="text-xl text-yellow-500">Get all the Info regarding your favorite Crypto Currency</h2>
           </Typography>
         </div>
         <Carousel />
