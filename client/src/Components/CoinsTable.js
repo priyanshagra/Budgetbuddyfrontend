@@ -31,7 +31,7 @@ export default function CoinsTable() {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-
+  const { isSwitchOn, setIsSwitchOn } = CryptoState();
   const { currency, symbol } = CryptoState();
 
   const useStyles = makeStyles({
@@ -91,14 +91,22 @@ export default function CoinsTable() {
           variant="h4"
           style={{ margin: 18, fontFamily: "Montserrat" }}
         >
-          Cryptocurrency Prices by Market Cap
+          
         </Typography>
+        
         <TextField
+      
           label="Search For a Crypto Currency.."
           variant="outlined"
-          style={{ marginBottom: 20, width: "100%" }}
+          
+      InputLabelProps={{
+        style: { color: isSwitchOn ? 'white':'black' }, // Style for the label text
+      }}
+
+          style={{ marginBottom: 20,border: '3px solid black', width: "100%" }}
           onChange={(e) => setSearch(e.target.value)}
         />
+        
         <TableContainer component={Paper}>
           {loading ? (
             <LinearProgress style={{ backgroundColor: "gold" }} />
@@ -158,7 +166,7 @@ export default function CoinsTable() {
                             >
                               {row.symbol}
                             </span>
-                            <span style={{ color: "darkgrey" }}>
+                            <span style={{ color: "white" }}>
                               {row.name}
                             </span>
                           </div>
@@ -170,7 +178,7 @@ export default function CoinsTable() {
                         <TableCell
                           align="right"
                           style={{
-                            color: profit > 0 ? "rgb(14, 203, 129)" : "red",
+                            color: profit > 0 ? "rgb(14, 203, 129)" : "green",
                             fontWeight: 500,
                           }}
                         >
@@ -198,6 +206,7 @@ export default function CoinsTable() {
           style={{
             padding: 20,
             width: "100%",
+            border: '2px solid black',
             display: "flex",
             justifyContent: "center",
           }}
