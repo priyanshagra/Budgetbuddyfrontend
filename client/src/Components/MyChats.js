@@ -84,6 +84,7 @@ const MyChats = ({ fetchAgain }) => {
         justifyContent="space-between"
         alignItems="center"
       >
+        <div className={`${isSwitchOn?"text-white":"text-black"}`}>
         My Chats
         <GroupChatModal>
           <Button
@@ -104,6 +105,7 @@ const MyChats = ({ fetchAgain }) => {
         style: { color: 'white' }
       }}
         />
+        </div>
         <Box
           display="flex"
           flexDir="column"

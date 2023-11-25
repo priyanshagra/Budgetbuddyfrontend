@@ -12,7 +12,7 @@ const Chatpage = () => {
   const { selectedChat, setSelectedChat } = ChatState();
 
   return (
-    <div className={`${isSwitchOn?"bg-white":"bg-black"}`} style={{ width: "100%" }}>
+    <div className={`${isSwitchOn?"bg-black":"bg-white"}`} style={{ width: "100%" }}>
       <Box display="flex" justifyContent="space-between" w="100%" h="91.5vh" p="10px">
         {<MyChats fetchAgain={fetchAgain} />}
         {<Chatbox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />}
