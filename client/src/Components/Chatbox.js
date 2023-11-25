@@ -18,7 +18,7 @@ const Chatbox = ({ fetchAgain, setFetchAgain }) => {
       w={{ base: "100%", md: "68%" }}
       borderRadius="lg"
       borderWidth="1px"
-      className={`${isSwitchOn?"text-gray-800":"text-white"}`}
+      className={`${isSwitchOn?"text-black-800":"text-white-900"}`}
     >
       <SingleChat fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
     </Box>

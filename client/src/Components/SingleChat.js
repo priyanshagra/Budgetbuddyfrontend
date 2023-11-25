@@ -185,8 +185,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             {messages &&
               (!selectedChat.isGroupChat ? (
                 <>
+                <div className={`${isSwitchOn?"text-white":"text-black"}`} >
                   {getSender(cookies.UserId, selectedChat.users)}
+                  </div>
                   <ProfileModal
+                  
                     user={getSenderFull(cookies.UserId, selectedChat.users)}
                   />
                 </>
@@ -201,6 +204,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 </>
               ))}
           </Text>
+          <div></div>
           <Box
             display="flex"
             flexDir="column"
@@ -244,24 +248,29 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               ) : (
                 <></>
               )}
+              
               <Input
                 variant="filled"
                 bg="#E0E0E0"
                 placeholder="Enter a message.."
                 value={newMessage}
                 onChange={typingHandler}
+                textColor={isSwitchOn?"white":"black"}
               />
             </FormControl>
           </Box>
         </>
       ) : (
         // to get socket.io on same page
+       
         <Box d="flex" alignItems="center" justifyContent="center" h="100%">
           <Text fontSize="3xl" pb={3} fontFamily="Work sans">
-            Click on a user to start chatting
+            <div className={`${isSwitchOn?" bg-lime-500 text-black":"bg-green-400 bg-white"}`}>Click on a user to start chatting</div>
+            
             <hr/>
           </Text>
         </Box>
+        
       )}
     </>
   );
